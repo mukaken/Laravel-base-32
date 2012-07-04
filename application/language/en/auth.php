@@ -9,5 +9,6 @@ return array(
     'success' => 'Login successfully.',
     'failed' => 'Login failed.',
     'logoff' => 'Logoff successfully.',
-    'require' => 'Login required.'
+    'require' => 'Login required.',
+    'created' => 'Create your user accout successfully.',
 );

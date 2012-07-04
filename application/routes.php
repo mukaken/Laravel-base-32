@@ -108,11 +108,11 @@ Route::post('signup', array('before' => 'csrf', function()
     {
         if (Form_Signup::is_valid())
         {
-            User::create(Input::only(array('username', 'password', 'email'))); // ユーザー作成
+            $user = User::create(Input::only(array('username', 'password', 'email'))); // ユーザー作成
 
-            Auth::login(Input::get('username')); // ログインさせる
+            Auth::login($user->id); // ログインさせる
 
-            return Redirect::home(); // ルートへ
+            return Redirect::home()->with('message', __('auth.created')); // ルートへ
         }
         else
         {
