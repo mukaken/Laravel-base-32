@@ -36,27 +36,22 @@ function document_exists($page) {
 /**
  * Route definitions
  */
-Route::get('(:bundle)/(:any)/(:num?)',
-    function($section, $ver = 0)
+Route::get('(:bundle)/(:any)/(:num?)', function($section, $ver = 0)
     {
         return generate_page($section, null, null, $ver);
     });
-Route::get('(:bundle)/(ja|en)/(:any)/(:num?)',
-    function($lang, $section, $ver = 0)
+Route::get('(:bundle)/(ja|en)/(:any)/(:num?)', function($lang, $section, $ver = 0)
     {
         return generate_page($section, null, $lang, $ver);
     });
-Route::get('(:bundle)/(:any)/(:any)/(:num?)',
-    function($section, $page, $ver = 0)
+Route::get('(:bundle)/(:any)/(:any)/(:num?)', function($section, $page, $ver = 0)
     {
         return generate_page($section, $page, null, $ver);
     });
-Route::get('(:bundle)/(ja|en)/(:any)/(:any)/(:num?)',
-    function($lang, $section, $page, $ver = 0)
+Route::get('(:bundle)/(ja|en)/(:any)/(:any)/(:num?)', function($lang, $section, $page, $ver = 0)
     {
         return generate_page($section, $page, $lang, $ver);
     });
-
 /**
  * Generate page from md file
  * @param type $section
@@ -90,7 +85,7 @@ function generate_page($section, $page = null, $arg_lang = '', $ver = 0) {
     if (document_exists($file))
     {
         $base = URL::base().'/'.URI::segment(1).'/';
-        
+
         if ($arg_lang == 'ja')
         {
             $ja_link = URL::current();
@@ -137,3 +132,21 @@ function generate_page($section, $page = null, $arg_lang = '', $ver = 0) {
         return Response::error('404');
     }
 }
+
+/**
+ * レスポンス送信前のイベントをキャッチするリスナーを登録
+ *
+ * 現状、レンダーされるビューは先に送信（表示）されてしまう。
+ * そのため、内容をこのリスナー内で書き換えても無駄になる。
+ */
+Event::listen('laravel.done', function($response)
+    {
+        $code = $response->foundation->getStatusCode();
+        if (in_array($code, array(200)) and starts_with(URI::current(), 'docs'))
+        {
+            if (!PCache::has())
+            {
+                PCache::put($response);
+            }
+        }
+    });
