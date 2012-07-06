@@ -30,9 +30,13 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
+                            @if (Auth::check())
+                            <li><a href="{{ URL::to('admin/home') }}">Admin Area</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Sign Out</a></li>
+                            <li><a href="{{ URL::to('logout') }}">Log Out</a></li>
+                            @else
+                            <li><a href="{{ URL::to('login') }}">Log In</a></li>
+                            @endif
                         </ul>
                     </div>
                     <div class="nav-collapse">
@@ -56,7 +60,7 @@
                     {{-- エラー出力 --}}
                     @if (Session::has('warning'))
                     <div class="row-fluid">
-                        <div class="span9 alert alert-error">
+                        <div class="alert alert-error">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             {{ Session::get('warning') }}
                         </div>
@@ -64,7 +68,7 @@
                     @endif
                     @if (Session::has('notice'))
                     <div class="row-fluid">
-                        <div class="span9 alert">
+                        <div class="alert">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             {{ Session::get('notice') }}
                         </div>
@@ -72,7 +76,7 @@
                     @endif
                     @if (Session::has('message'))
                     <div class="row-fluid">
-                        <div class="span9 alert alert-success">
+                        <div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             {{ Session::get('message') }}
                         </div>
