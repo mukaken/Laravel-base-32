@@ -12,7 +12,7 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
     </head>
-    <body>
+     <body onload="prettyPrint()">
         {{-- トップナビ --}}
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -95,7 +95,5 @@
         {{ HTML::script('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('laravel/js/prettify.js') }}
-    </div>
-</div>
 </body>
 </html>
