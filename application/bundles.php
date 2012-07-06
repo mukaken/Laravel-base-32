@@ -38,6 +38,9 @@ return array(
         'handles' => 'docs',
         'auto' => true,
     ),
+    'pagecache' => array(
+        'auto' => true,
+    ),
     'form-base-model' => array(
         'auto' => true,
     ),
