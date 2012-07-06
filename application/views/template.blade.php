@@ -6,6 +6,7 @@
         {{ HTML::style('css/bootstrap.css') }}
         {{ HTML::style('css/bootstrap-responsive.css') }}
         {{ HTML::style('css/docs.css') }}
+        {{ HTML::style('css/prittify.css') }}
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
