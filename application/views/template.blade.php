@@ -89,6 +89,12 @@
                             @yield('content')
                         </div>
                     </div>
+                    {{-- フッター --}}
+                    <div class="row-fluid">
+                        <div class="span9">
+                            @yield('footer')
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,5 +102,20 @@
         {{ HTML::script('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('laravel/js/prettify.js') }}
+        <script type="text/javascript">
+            $(function(){
+                $('#menu-list li>ul').hide().parent().children('a').append('<span style="color:#03a;"> v</span>');
+                $('#menu-list li:has(ul)').hover(
+                function(){
+                    if($('>ul', this).css('display')=='none') {
+                        $('#menu-list li>ul').slideUp('slow');
+                        $('>ul',this).slideDown('slow');
+                    }
+                },
+                function(){}
+            );
+            });
+        </script>
+
 </body>
 </html>
