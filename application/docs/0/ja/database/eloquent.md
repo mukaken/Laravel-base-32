@@ -10,11 +10,12 @@
 - [関係付け](#relationships)
 - [関係したモデルを挿入](#inserting-related-models)
 - [中間テーブルの操作](#intermediate-tables)
-- [Eagerローディング](#eager)
-- [Eagerローディンクを作成](#constraining-eager-loads)
+- [Eagerロード](#eager)
+- [Eagerロードの構成](#constraining-eager-loads)
 - [セッター／ゲッターメソッド](#getter-and-setter-methods)
 - [複数代入](#mass-assignment)
 - [モデルを配列に変換](#to-array)
+- [モデル削除](#delete)
 
 <a name="the-basics"></a>
 ## 基本
@@ -46,7 +47,7 @@ Eloquentでは、データベース構造に関して、いくつかの基本的
 <a name="get"></a>
 ## モデルの取得
 
-Eloquentを使用して、モデルを取得するのは、心地よいほど簡単です。最も基本的なEloquentモデルを取得する方法はstaticの**find**メソッドです。これはプライマリーキーを指定し、、テーブルの各カラムに対応したプロパティを持つモデルをリターンするメソッドです。
+Eloquentを使用して、モデルを取得するのは、心地よいほど簡単です。最も基本的なEloquentモデルを取得する方法はstaticの**find**メソッドです。これはプライマリーキーを指定し、テーブルの各カラムに対応したプロパティを持つモデルをリターンするメソッドです。
 
 	$user = User::find(1);
 
@@ -65,7 +66,7 @@ findメソッドは、次のようなクエリーを実行します。
 	     echo $user->email;
 	}
 
-もちろん、テーブル全部を取得できてもそれほど便利ではありません。ありがたいことに、**Fluentクエリービルダーの全てのメソッドは、Eloquentでも使用可能です。**モデルを最初はstaticな[クエリービルダー](/docs/database/query)から始め、**get**か*first*メソッドでqueryを実行してください。getメソッドはモデルの配列を返し、一方のfirstメソッドは、１モデルを返します。
+もちろん、テーブル全部を取得できてもそれほど便利ではありません。ありがたいことに、**Fluentクエリービルダーの全てのメソッドは、Eloquentでも使用可能です。**モデルを最初はstaticな[クエリービルダー](/docs/database/query)から始め、**get**か**first**メソッドでqueryを実行してください。getメソッドはモデルの配列を返し、一方のfirstメソッドは、モデルをひとつだけ返します。
 
 	$user = User::where('email', '=', $email)->first();
 
@@ -129,7 +130,7 @@ Eloquenモデルを挿入するのは、多少手間がかかります。最初�
 
 	}
 
-次にテーブルへ**create_at**とupdate_at**をdate型で付け加えてください。これで、いつでもモデルを保存すれば、自動的に作成／更新タイプスタンプがセットされます。なになに、どういたしまして。
+次にテーブルへ**create_at**と**update_at**をdate型で付け加えてください。これで、いつでもモデルを保存すれば、自動的に作成／更新タイプスタンプがセットされます。なになに、どういたしまして。
 
 > **注目：**アプリケーションのデフォルトタイムゾーンは**application/config/application.php**ファイルで変更できます。
 
@@ -158,7 +159,7 @@ Eloquentモデルに関係を定義するためには、ただ**has_one**、**ha
 
 	}
 
-Notice that the name of the related model is passed to the **has_one** method. これで、ユーザーの電話を**phone**メソッドを通して、取得できるようになりました。
+関係するモデル名を**has_one**メソッドに渡していることに注目してください。これで、ユーザーの電話を**phone**メソッドを通して、取得できるようになりました。
 
 	$phone = User::find(1)->phone()->first();
 
@@ -168,7 +169,7 @@ Notice that the name of the related model is passed to the **has_one** method. �
 
 	SELECT * FROM "phones" WHERE "user_id" = 1
 
-Note that Eloquent assumes the foreign key of the relationship will be **user\_id**. ほとんどの外部キーが、この**モデル_id**規約に従っていることでしょう。しかしながら、他のカラム名を外部キーとして使っているのでしたら、メソッドの２番目の引数として渡してください。
+関連付けの外部キーとして、Eloquent は **user_id**を使用していることに気をつけてください。ほとんどの外部キーが、この**モデル_id**規約に従っていることでしょう。しかしながら、他のカラム名を外部キーとして使っているのでしたら、メソッドの２番目の引数として渡してください。
 
 	return $this->has_one('Phone', 'my_foreign_key');
 
@@ -176,7 +177,7 @@ Note that Eloquent assumes the foreign key of the relationship will be **user\_i
 
 	$phone = User::find(1)->phone;
 
-電話のユーザーを取得する必要がある？phonesテーブルに外部キー(**user_id)があるのですから、この関係を**belongs_to**（所属する）メソッドで表現する必要があります。理屈に合っているでしょう？電話はユーザーに所属しています。**belongs_to**メソッドを使う場合、リレーションシップメソッドの名前は対応する外部キー（**_id**無し）にする必要があります。外部キーの名前が**user_id**ですから、リレーションシップメソッドの名前は**user**になります。
+電話のユーザーを取得する必要がある？phonesテーブルに外部キー(**user_id**)があるのですから、この関係を**belongs_to**（所属する）メソッドで表現する必要があります。理屈に合っているでしょう？電話はユーザーに所属しています。**belongs_to**メソッドを使う場合、リレーションシップメソッドの名前は対応する外部キー（**_id**無し）にする必要があります。外部キーの名前が**user_id**ですから、リレーションシップメソッドの名前は**user**になります。
 
 	class Phone extends Eloquent {
 
@@ -242,8 +243,9 @@ Note that Eloquent assumes the foreign key of the relationship will be **user\_i
 	id   - INTEGER
 	name - VARCHAR
 
-**Roles_Users:**
+**Role_User:**
 
+    id      - INTEGER
 	user_id - INTEGER
 	role_id - INTEGER
 
@@ -277,6 +279,17 @@ Note that Eloquent assumes the foreign key of the relationship will be **user\_i
 
 	}
 
+デフォルトでは、ピボットテーブルに確実に存在するフィールドがリターンされます。（２つの**id**フィールドとタイムスタンプ）もしあなたのピボットテーブルに他のカラムを追加しているのでしたら、それらを**with()**メソッドを用い取得することもできます。
+
+	class User extends Eloquent {
+
+	     public function roles()
+	     {
+	          return $this->has_many_and_belongs_to('Role', 'user_roles')->with('column');
+	     }
+
+	}
+
 <a name="inserting-related-models"></a>
 ## 関係したモデルを挿入
 
@@ -286,7 +299,7 @@ Note that Eloquent assumes the foreign key of the relationship will be **user\_i
 
 	$post = Post::find(1);
 
-	$post->comments()->insert($comment);
+	$comment = $post->comments()->insert($comment);
 
 親のモデルを通して関連するモデルを挿入する場合、外部キーは自動的に設定されます。ですからこの場合、新しく挿入されたコメントでしたら、"post_id"に"1"が自動的にセットされます。
 
@@ -310,13 +323,17 @@ Note that Eloquent assumes the foreign key of the relationship will be **user\_i
 
 	$user = User::find(1);
 
-	$user->roles()->insert($role);
+	$role = $user->roles()->insert($role);
 
 役割が挿入された時、"roles"テーブルにRoleが挿入されただけではなく、中間テーブルにもレコードが挿入されます。面倒ですからね！
 
-しかしながら、しばしば新しいレコードを中韓テーブルに挿入したくなるでしょう。多分、既に存在するユーザーに、役割を追加したい時などです。attachメソッドを使用してください。
+しかしながら、しばしば新しいレコードを中間テーブルに挿入したくなるでしょう。多分、既に存在するユーザーに、役割を追加したい時などです。attachメソッドを使用してください。
 
 	$user->roles()->attach($role_id);
+
+また、中間テーブル（ピボットテーブル）のフィールドにデーターを追加することも可能です。追加したいデータを含んだ追加コマンドを２つ目の変数配列として付け加えます。
+
+	$user->roles()->attach($role_id, array('expires' => $expires));
 
 <a name="sync-method"></a>
 別の方法として、"sync"メソッドも使用できます。中間テーブルで同期(sync)させたいIDの配列を渡します。この操作が完了すると、配列の中のIDだけが中間テーブルに存在することになります。
@@ -356,10 +373,10 @@ Note that Eloquent assumes the foreign key of the relationship will be **user\_i
 
 	$user->roles()->delete();
 
-これは役割を"roles"テーブルるから削除しないことに注意してください。ただ、指定したユーザーに結びついている役割のレコードを中間テーブルから削除しているだけです。
+これは役割を"roles"テーブルから削除しないことに注意してください。ただ、指定したユーザーに結びついている役割のレコードを中間テーブルから削除しているだけです。
 
 <a name="eager"></a>
-## Eagerローディング
+## Eagerロード
 
 EagerローディングはN+1クエリー問題を和らげるために存在しています。具体的にはどんな問題でしょうか？えー、それぞれの本は著者に所属するとしましょう。この関係を表すと、次のようになります。
 
@@ -379,7 +396,7 @@ EagerローディングはN+1クエリー問題を和らげるために存在し
 	     echo $book->author->name;
 	}
 
-一体いくつのクエリーが実行されるのでしょうか？ええと、まず一つはテーブルのすべての本を取得するために実行されます。それから、著者を取得するため、それぞれの本についてクエリーが実行されます。To display the author name for 25 books would require **26 queries**. 合計でどのくらいの速度になると思いますか？
+一体いくつのクエリーが実行されるのでしょうか？ええと、まず一つはテーブルのすべての本を取得するために実行されます。それから、著者を取得するため、それぞれの本についてクエリーが実行されます。２５冊の著者の名前を表示するために、**２６回のクエリー**が必要になります。合計でどのくらいの速度になると思いますか？
 
 ありがたいことに、**with**メソッドを使えば、autherモデルをEagerロードできます。Eagerロードしたい関係の**関数名**を使ってください。
 
@@ -406,8 +423,30 @@ EagerローディングはN+1クエリー問題を和らげるために存在し
 
 	$books = Book::with(array('author', 'author.contacts'))->get();
 
+もし、同じモデルに対し頻繁にeagerローディングを使っているのに気づいたなら、**$includes**をモデル中で使いたくなるでしょう。
+
+	class Book extends Eloquent {
+
+	     public $includes = array('author');
+
+	     public function author()
+	     {
+	          return $this->belongs_to('Author');
+	     }
+
+	}
+
+**$includes**は**with**と同じ引数を取ります。これで、以下のコードでeagerロードされるようになります。
+
+	foreach (Book::all() as $book)
+	{
+	     echo $book->author->name;
+	}
+
+> **注意：** **with**はモデルの**$includes**をオーバーライドします。
+
 <a name="constraining-eager-loads"></a>
-## Eagerローディンクを作成
+## Eagerロードの構成
 
 Eagerロードだけではなく、Eagerロードに条件を付けたい時もあるでしょう。簡単です。次のようなコードになります。
 
@@ -420,7 +459,7 @@ Eagerロードだけではなく、Eagerロードに条件を付けたい時も�
 この例ではユーザーのポストをEagerロードしていますが、ポストのタイトルに"first"がつかわれているものだけを選択しています。
 
 <a name="getter-and-setter-methods"></a>
-## Getter & Setter Methods
+## ゲッターとセッターメソッド
 
 セッターはカスタムメソッドを使用し、属性を結びつけられるようにしてくれます。セッターは、属性の名前に"set_"を付けたもので定義してください。
 
@@ -447,7 +486,7 @@ Eagerロードだけではなく、Eagerロードに条件を付けたい時も�
 <a name="mass-assignment"></a>
 ## 複数代入
 
-複数代入は連想配列を渡し、モデルの属性にその配列の値を埋める方法です。複数代入はモデルのコンストラクターに配列を渡すことで行えます。
+複数代入は連想配列を渡し、モデルの属性にその配列の値を埋める方法です。複数代入はモデルのコンストラクターに配列を渡すことで行うことができます。
 
 	$user = new User(array(
 		'username' => 'first last',
@@ -499,3 +538,12 @@ JSON APIを作成している場合、頻繁にモデルを配列にコンバー
 		public static $hidden = array('password');
 
 	}
+
+<a name="delete"></a>
+## モデル削除
+
+EloquentはFluentクエリービルダーの全ての機能とメソッドを継承しているため、モデルもさっと削除できます。
+
+	$author->delete();
+
+しかしながら、注意してもらいたいのは、[外部キー](/docs/database/schema#foreign-keys)と連鎖削除(cascade delete)を指定していない限り、関連しているモデルは削除されないことです。（例えば、この著者の全てのBookモデルはまだ存在しています。）

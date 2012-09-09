@@ -1,4 +1,8 @@
-@layout('docs::template')
+@layout('template')
+
+@section('sidenave')
+    {{ $sidebar }}
+@endsection
 
 @section('content')
 	{{ $content }}
