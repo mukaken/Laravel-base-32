@@ -25,6 +25,7 @@
 #### 文字列の文字数を制限
 
 	echo Str::limit($string, 10);
+	echo Str::limit_exact($string, 10);
 
 #### 文字列の語数を制限
 

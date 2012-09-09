@@ -124,7 +124,7 @@ WHERE節でカッコを使用し、グループにする必要があることも
 		->or_where(function($query)
 		{
 			$query->where('age', '>', 25);
-			$query->where('votes' '>', 100);
+			$query->where('votes', '>', 100);
 		})
 		->get();
 
@@ -169,7 +169,7 @@ joinの第２パラメーターに無名関数を使用することで、**ON**�
 			$join->on('users.id', '=', 'phone.user_id');
 			$join->or_on('users.id', '=', 'phone.contact_id');
 		})
-		->get(array('users.email', 'phone.numer'));
+		->get(array('users.email', 'phone.number'));
 
 <a name="ordering"></a>
 ## 結果の順序

@@ -17,7 +17,7 @@ LaravelのコマンドラインツールはArtisanです。Artisanでマイグ�
 
 タスクを作成するには、**application/tasks**ディレクトリーに新しいクラスを書きます。クラスの名前はサフィックスとして"_Task"を付け、"run"メソッドを含まなくてはなりません。このように：
 
-#### Creating a task class:
+#### タスククラスの生成
 
 	class Notify_Task {
 
@@ -37,6 +37,14 @@ LaravelのコマンドラインツールはArtisanです。Artisanでマイグ�
 #### 引数を渡し、タスクを呼び出す
 
 	php artisan notify taylor
+
+#### アプリケーションからタスクを呼び出す
+
+	Command::run(array('notify'));
+
+#### 引数をつけ、アプリケーションからタスクを呼び出す
+
+	Command::run(array('notify', 'taylor'));
 
 タスクに存在する特定のメソッドを呼び出せることを覚えておいてください。Notifyタスクにurgentメソッドを追加しましょう。
 
