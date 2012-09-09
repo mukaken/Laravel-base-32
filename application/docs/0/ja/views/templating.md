@@ -5,6 +5,7 @@
 - [基本](#the-basics)
 - [セクション](#sections)
 - [Bladeテンプレートエンジン](#blade-template-engine)
+- [Blade Control Structures](#blade-control-structures)
 - [Bladeレイアウト](#blade-layouts)
 
 <a name="the-basics"></a>
@@ -63,29 +64,63 @@ Bladeはビューを書くことを至高の喜びにしてくれます。Blade�
 
 #### Bladeを使い、変数をエコーする
 
-	Hello, {{$name}}.
-	
+	Hello, {{ $name }}.
+
 #### Bladeを使い、関数の結果をエコーする
 
 	{{ Asset::styles() }}
 
-#### ビューをレンダリングする
+#### ビューをレンダーする
+
+**@include**を使用し、他のビューの中にビューをレンダーすることができます。レンダーされるビューは自動的に、現在のビューの全てのデーターを継承します。
 
 	<h1>Profile</hi>
-
 	@include('user.profile')
 
-> **注目：**Bladeの記述で**@include**を使用する場合、現在のビューのデーターは全て自動的に継承されます。
+同様に、**@include**と同じような働きをする**@render**も使用できます。違いはレンダー時に、現在のビューのデーターを継承**しない**ことです。
 
-#### ブレードでループを作成する
+	@render('admin.list')
 
-	<h1>Comments</h1>
+#### Bladeコメント
+
+	{{-- これがコメントです --}}
+
+	{{--
+		これは a
+		multi-line
+		コメント例です。
+	--}}
+
+> **注目：**Bladeのコメントは、HTMLコメントとは異なり、HTMLソースには出力されません。
+
+<a name='blade-control-structures'></a>
+## Blade Control Structures
+
+#### For Loop:
+
+	@for ($i = 0; $i <= count($comments); $i++)
+		コメントの内容は {{ $comments[$i] }}
+	@endfor
+
+#### Foreach Loop:
 
 	@foreach ($comments as $comment)
-		コメントの内容は {{$comment->body}}.
+		コメントの内容は {{ $comment->body }}.
 	@endforeach
 
-#### 他のBladeコントロール構文
+#### While Loop:
+
+	@while ($something)
+		まだループ中です！
+	@endwhile
+
+#### If Statement:
+
+	@if ( $message == true )
+		I'm displaying the message!
+	@endif
+
+#### If Else Statement:
 
 	@if (count($comments) > 0)
 		コメントがあります！
@@ -93,15 +128,17 @@ Bladeはビューを書くことを至高の喜びにしてくれます。Blade�
 		コメントがありません！
 	@endif
 
-	@for ($i =0; $i < count($comments) - 1; $i++)
-		コメントの内容は {{$comments[$i]}}
-	@endfor
+#### Else If Statement:
 
-	@while ($something)
-		まだループ中です！
-	@endwhile
+	@if ( $message == 'success' )
+		It was a success!
+	@elseif ( $message == 'error' )
+		An error occurred.
+	@else
+		Did it work?
+	@endif
 
-#### "for-else"コントロール構文
+#### For Else Statement:
 
 	@forelse ($posts as $post)
 		{{ $post->body }}
@@ -109,28 +146,17 @@ Bladeはビューを書くことを至高の喜びにしてくれます。Blade�
 		配列中にはポストはありません！
 	@endforelse
 
-<a name="blade-unless"></a>
-#### "unless"コントロール構文
+#### Unless Statement:
 
 	@unless(Auth::check())
-		{{ HTML::link_to_route('login', 'Login'); }}
+		Login
 	@endunless
 
-	// 同じ内容...
+	// 同じ内容 to...
 
 	<?php if ( ! Auth::check()): ?>
-		...
+		Login
 	<?php endif; ?>
-
-<a name="blade-comments"></a>
-#### Bladeコメント
-	
-	@if ($check)
-		{{-- これがコメントです --}}
-		...
-	@endif
-
-> **注目：**Bladeのコメントは、HTMLコメントとは異なり、HTMLソースには出力されません。
 
 <a name="blade-layouts"></a>
 ## Bladeレイアウト
@@ -164,6 +190,10 @@ BladeはきれいでエレガントなシンタックスをPHPの一般的なコ
 
 porfileビューはありがたいことに、**@layout**文により、Laravelは"master"テンプレートを自動的に使用してくれます。
 
+> **重要：** **@layout**はファイルの最初の一行で呼び出す必要があり、先頭にホワイトスペースをつけたり、途中で改行してはいけません。
+
+#### @parentで追加する
+
 場合により、セクションのレイアウトを置き換えてしまうよりは、追加したいこともあります。例えば、"master"レイアウトのナビゲーションリストを考えてください。ここに、新しいアイテムを追加してみましょう。こんな風になります：
 
 	@layout('master')
@@ -177,4 +207,4 @@ porfileビューはありがたいことに、**@layout**文により、Laravel�
 		profileページへようこそ！
 	@endsection
 
-**@parent**Blade構文に気が付きましたか？これはlayoutのnavigationセクションの内容に置き換わります。これはレイアウトの拡張と継承を実現する美しくてパワフルな手法を提供しています。
+**@parent**はレイアウトの*navigation*セクションの内容と置き換わります。これはレイアウトの拡張と継承を実現する美しくてパワフルな手法を提供しています。

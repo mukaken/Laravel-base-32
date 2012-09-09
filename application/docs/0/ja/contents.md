@@ -4,6 +4,7 @@
 - [インストールと準備](/docs/install)
 	- [動作要件](/docs/install#requirements)
 	- [インストール](/docs/install#installation)
+	- [Server 設定](/docs/install#server-configuration)
 	- [基本設定](/docs/install#basic-configuration)
 	- [環境](/docs/install#environments)
 	- [クリーンURL](/docs/install#cleaner-urls)
@@ -17,7 +18,8 @@
 	- [ルートグループ](/docs/routing#groups)
 	- [名前付きルート](/docs/routing#named-routes)
 	- [HTTPSルート](/docs/routing#https-routes)
-	- [バンドルルーティング](/docs/routing#bundle-routing)
+	- [バンドルルート](/docs/routing#bundle-routes)
+	- [コントローラールーティング](/docs/routing#controller-routing)
 	- [CLIルートテスト](/docs/routing#cli-route-testing)
 - [コントローラー](/docs/controllers)
 	- [基本](/docs/controllers#the-basics)
@@ -108,3 +110,9 @@
 	- [バンドルタスク](/docs/artisan/tasks#bundle-tasks)
 	- [CLIオプション](/docs/artisan/tasks#cli-options)
 - [コマンド](/docs/artisan/commands)
+
+### 貢献
+
+- [GitHubのLaravel](/docs/contrib/github)
+- [コマンドライン](/docs/contrib/command-line)
+- [TortoiseGit](/docs/contrib/tortoisegit)
