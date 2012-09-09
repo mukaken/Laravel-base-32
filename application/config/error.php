@@ -30,6 +30,8 @@ return array(
 	|
 	*/
 
+	// エラー発生時にメッセージを表示しない。
+	// 発生時にはデフォルトの500ページが表示される。
 	'detail' => false,
 
 	/*
@@ -63,6 +65,9 @@ return array(
 
 	'logger' => function($exception)
 	{
+		// 設定ファイルにエラーがある場合、LOgクラスのエイリアスが
+		// 定義されずエラーになることがある。
+		// それを防ぐため、完全修飾名に変更
 		Laravel\Log::exception($exception);
 	},
 
