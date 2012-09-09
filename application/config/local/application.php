@@ -1,5 +1,8 @@
 <?php
 
+// ブラウザの言語設定から、言語を読み込むために追加
+// PHPのintlモジュールが必要
+
 $language_from_browser_setting = value(function()
     {
         if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
@@ -103,6 +106,9 @@ return array(
       | Lang library as the default language when doing string localization.
       |
      */
+
+	// PHPのintl拡張がない、インストールしない場合は、直接言語コードを指定してください。
+	// 英語なら、'en',日本語なら'ja'です。
 
     'language' => $language_from_browser_setting,
     /*

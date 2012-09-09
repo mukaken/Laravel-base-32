@@ -30,6 +30,7 @@ return array(
 	|
 	*/
 
+	//	エラー発生時に、その内容を表示する
 	'detail' => true,
 
 	/*
@@ -63,6 +64,9 @@ return array(
 
 	'logger' => function($exception)
 	{
+		// 設定ファイルにエラーがある場合、LOgクラスのエイリアスが
+		// 定義されずエラーになることがある。
+		// それを防ぐため、完全修飾名に変更
 		Laravel\Log::exception($exception);
 	},
 

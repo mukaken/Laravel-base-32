@@ -34,13 +34,20 @@
  */
 
 return array(
+
+	// もともと入っているdocsバンドルを改造してあります。
     'docs' => array(
         'handles' => 'docs',
         'auto' => true,
     ),
+
+	// 自作のページキャッシュバンドル
     'pagecache' => array(
         'auto' => true,
     ),
+
+	// フォームベースモデル(form-base-model)
+	// ダウンロード、インストールしたもの
     'form-base-model' => array(
         'auto' => true,
     ),
