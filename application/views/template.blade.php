@@ -6,13 +6,14 @@
         {{ HTML::style('css/bootstrap.css') }}
         {{ HTML::style('css/bootstrap-responsive.css') }}
         {{ HTML::style('css/docs.css') }}
+        {{ HTML::style('css/prittify.css') }}
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
     </head>
-    <body>
+     <body onload="prettyPrint()">
         {{-- トップナビ --}}
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -30,9 +31,13 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
+                            @if (Auth::check())
+                            <li><a href="{{ URL::to('admin/home') }}">Admin Area</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Sign Out</a></li>
+                            <li><a href="{{ URL::to('logout') }}">Log Out</a></li>
+                            @else
+                            <li><a href="{{ URL::to('login') }}">Log In</a></li>
+                            @endif
                         </ul>
                     </div>
                     <div class="nav-collapse">
@@ -56,7 +61,7 @@
                     {{-- エラー出力 --}}
                     @if (Session::has('warning'))
                     <div class="row-fluid">
-                        <div class="span9 alert alert-error">
+                        <div class="alert alert-error">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             {{ Session::get('warning') }}
                         </div>
@@ -64,7 +69,7 @@
                     @endif
                     @if (Session::has('notice'))
                     <div class="row-fluid">
-                        <div class="span9 alert">
+                        <div class="alert">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             {{ Session::get('notice') }}
                         </div>
@@ -72,7 +77,7 @@
                     @endif
                     @if (Session::has('message'))
                     <div class="row-fluid">
-                        <div class="span9 alert alert-success">
+                        <div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             {{ Session::get('message') }}
                         </div>
@@ -84,6 +89,12 @@
                             @yield('content')
                         </div>
                     </div>
+                    {{-- フッター --}}
+                    <div class="row-fluid">
+                        <div class="span9">
+                            @yield('footer')
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,7 +102,20 @@
         {{ HTML::script('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('laravel/js/prettify.js') }}
-    </div>
-</div>
+        <script type="text/javascript">
+            $(function(){
+                $('#menu-list li>ul').hide().parent().children('a').append('<span style="color:#03a;"> v</span>');
+                $('#menu-list li:has(ul)').hover(
+                function(){
+                    if($('>ul', this).css('display')=='none') {
+                        $('#menu-list li>ul').slideUp('slow');
+                        $('>ul',this).slideDown('slow');
+                    }
+                },
+                function(){}
+            );
+            });
+        </script>
+
 </body>
 </html>
