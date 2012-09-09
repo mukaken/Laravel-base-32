@@ -18,29 +18,12 @@ return array(
 	|
 	*/
 
-	/*
-	|--------------------------------------------------------------------------
-	| バリデーション言語設定
-	|--------------------------------------------------------------------------
-	|
-	| 以下の言語設定はvalidatorクラスで使用しているデフォルトのエラーメッセージを構成しています。
-	| 幾つかのルールは複数の設定を持っています。例えばサイズ(max,min,between)ルールです。
-	| （訳注：(numeric, file, string)の間違いと思われる。
-	| これらの設定は、文字列やファイルのように入力のタイプの違いにより、使い分けられます。
-	|
-	| これらの言語設定はあなたのアプリケーションでカスタムエラーメッセージとして表示するため
-	| 気軽に変更してください。カスタムバリデーションルールのためのエラーメッセージも、
-	| 同様にこのファイルに追加していただけます。
-	|
-	*/
-
 	"accepted"       => ":attributeを承認してください。",
 	"active_url"     => ":attributeが有効なURLではありません。",
 	"after"          => ":attributeには、:date以降の日付を指定してください。",
 	"alpha"          => ":attributeはアルファベッドのみがご利用できます。",
 	"alpha_dash"     => ":attributeは英数字とダッシュ(-)及び下線(_)がご利用できます。",
 	"alpha_num"      => ":attributeは英数字がご利用できます。",
-	"array"          => "The :attribute must have selected elements.",
 	"before"         => ":attributeには、:date以前の日付をご利用ください。",
 	"between"        => array(
 		"numeric" => ":attributeは、:minから、:maxまでの数字をご指定ください。",
@@ -48,10 +31,6 @@ return array(
 		"string"  => ":attributeは、:min文字から:max文字の間でご指定ください。",
 	),
 	"confirmed"      => ":attributeと、確認フィールドとが、一致していません。",
-	"count"          => "The :attribute must have exactly :count selected elements.",
-	"countbetween"   => "The :attribute must have between :min and :max selected elements.",
-	"countmax"       => "The :attribute must have less than :max selected elements.",
-	"countmin"       => "The :attribute must have at least :min selected elements.",
 	"different"      => ":attributeと:otherには、異なった内容を指定してください。",
 	"email"          => ":attributeには正しいメールアドレスの形式をご指定ください。",
 	"exists"         => "選択された:attributeは正しくありません。",
@@ -98,20 +77,6 @@ return array(
 	|
 	*/
 
-	/*
-	|--------------------------------------------------------------------------
-	| カスタムバリデーション言語設定
-	|--------------------------------------------------------------------------
-	|
-	| ここでは、"属性_ルール"の記法を使用し、属性に対するカスタムバリデーションメッセージを
-	| 指定してください。これにより、カスタムバリデーションをきれいに美しく保てます。
-	|
-	| 例えば、"email"属性のuniqueバリデーションで、カスタムバリデーションメッセージを
-	| 使いたいならば、"email_unique"をカスタムメッセージとともに、配列に追加してください。
-	| Validatorクラスが残りの面倒を見ます！
-	|
-	*/
-
 	'custom' => array(),
 
 	/*
@@ -129,19 +94,12 @@ return array(
 	|
 	*/
 
-	/*
-	|--------------------------------------------------------------------------
-	| バリデーション属性
-	|--------------------------------------------------------------------------
-	|
-	| 以下の言語設定は属性のプレースホルダーを例えば"email"属性を"E-Mailアドレス"という風に
-	| 読み手に親切になるよう置き換えるために使用されます。
-	| あなたのユーザーは、あなたに感謝するでしょう。
-	|
-	| Validatorクラスは、自動的にメッセージに含まれる:attributeプレースホルダーを
-	| この配列の値に置き換えようと試みます。絶妙ですね。あなたも気に入ってくれるでしょう。
-	*/
-
-	'attributes' => array(),
+	'attributes' => array(
+        'username' => 'ユーザー名',
+        'password' => 'パスワード',
+        'password_confirm' => 'パスワード確認',
+        'email' => 'メールアドレス',
+        'submit' => '送信',
+    ),
 
 );
