@@ -58,6 +58,10 @@ return array(
       |
      */
 
+	// ApacheのModRewriteが動作する場合、index.phpをURLから省ける
+	// その場合は、indexを空文字列にする。
+	// ModRewirteが動作しない場合は、'index.php'を指定する。
+
     'index' => '',
     /*
       |--------------------------------------------------------------------------
@@ -71,6 +75,8 @@ return array(
       |
      */
 
+	// 32文字のでたらめな文字列。数字と英字で構成すること。
+
     'key' => 'IEi9fXkid038lsf093kfgd092329d9jg',
     /*
       |--------------------------------------------------------------------------
@@ -83,6 +89,10 @@ return array(
       | disable the toolbar for production applications..
       |
      */
+
+	// プロファイラの表示。開発環境であるため表示する。
+	// これをtrueにすることで、ログはファイルに保存されず、
+	// プロファイラに表示されるようになる。
 
     'profiler' => true,
     /*
@@ -152,6 +162,9 @@ return array(
       | the alias defined here.
       |
      */
+
+	// クラスのエイリアス
+	// Laravelではクラスのエイリアスはユーザーが自由に定義できる
 
     'aliases' => array(
         'Auth' => 'Laravel\\Auth',
