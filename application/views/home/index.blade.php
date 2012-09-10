@@ -5,10 +5,6 @@ Laravel:トップページ
 @endsection
 
 @section('content')
-<div class="hero-unit">
-    <h1>Laravel</h1>
-    <p>Web職人のためのフレームワーク</p>
-</div>
 <div class="row-fluid">
     <div class="span9">
         <h2>学習領域</h2>
