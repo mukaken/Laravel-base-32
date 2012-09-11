@@ -136,21 +136,31 @@ Route::get('command', function()
 Route::post('command',
 	function()
 	{
+		// バリディーション項目を設定していないため、
+		// 常にtrueになるが、将来追加した時のため、
+		// コードを入れておく
 		if (Form_Command::is_valid())
 		{
-			// 入力を空白で区切って配列にする
+			if (Input::has('command')) {
+				// 入力を空白で区切って配列にする
 				$command = explode(' ',Input::get('command', ''));
+			} else {
+				// 何も指定されない場合は、ヘルプを出力
+				$command = array('help:commands');
+			}
 
 			// 出力のバッファリング開始
 			ob_start();
 
 			try
 			{
+				// コマンド実行
 				require path('sys').'cli/dependencies'.EXT;
 				Laravel\CLI\Command::run($command);
 			}
 			catch (Exception $ex)
 			{
+				// $buff、$ex、どちらのエラーが良いか判断つかず、ペンディング
 				$buff = str_replace(PHP_EOL, '<br />', ob_get_contents());
 				return Redirect::back()->with_input()->with('warning', $ex->getMessage());
 			}
@@ -160,7 +170,7 @@ Route::post('command',
 			// 内容を出力せず、バッファリング終了
 			ob_end_clean();
 
-			Redirect::back()->with_input()->with('message', str_replace(PHP_EOL, '<br />', $buff));
+			return Redirect::back()->with_input()->with('message', $buff);
 
 		} else {
 				return Redirect::back()

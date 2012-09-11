@@ -5,6 +5,11 @@
 class Form_Command extends FormBaseModel\Base {
 
     public static $rules = array(
-        'command' => 'required',
+	// 一般に使用させるページではないので、
+	// バリディーション無し
+	// 単純にバリディーション出来ないので、
+	// Validatorで行うと複雑になりすぎる
+	//
+    //    'command' => '',
     );
 }
