@@ -122,6 +122,36 @@ Route::post('signup',
 		}
 	}));
 
+/**
+ * テンプレートコンポーサー
+ *
+ * テンプレートが生成される場合に呼び出される
+ * セッションにメッセージが存在する場合、
+ * ビューに変数として渡す。
+ *
+ * これにより、ビューとリダイレクト両方で
+ * ->with('message', 'メッセージ内容')の形で
+ * メッセージを指定できる
+ *
+ */
+
+View::composer('template', function($view)
+	{
+		{
+			if (! isset($view->warning))
+			{
+				$view->warning = Session::get('warning', false);
+			}
+			if (! isset($view->notice))
+			{
+				$view->notice = Session::get('notice', false);
+			}
+			if (! isset($view->message)) {
+				$view->message = Session::get('message', false);
+			}
+		}
+	});
+
 /*
  * Artisanコマンドをフォームから実行
  *
