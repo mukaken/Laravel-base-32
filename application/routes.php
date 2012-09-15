@@ -158,6 +158,7 @@ View::composer('template', function($view)
  * 当然、実働環境ではコメントにするか、削除すること
  *
  */
+
 Route::get('command', function()
 	{
 		return view('command.artisan');

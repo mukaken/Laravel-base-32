@@ -59,27 +59,27 @@
                 </div>
                 <div class="span9">
                     {{-- エラー出力 --}}
-                    @if (Session::has('warning'))
+                    @if ( $warning )
                     <div class="row-fluid">
                         <div class="alert alert-error">
                             <button type="button" class="close" data-dismiss="alert">×</button>
-                            {{ Session::get('warning') }}
+                            {{ $warning }}
                         </div>
                     </div>
                     @endif
-                    @if (Session::has('notice'))
+                    @if ( $notice )
                     <div class="row-fluid">
                         <div class="alert">
                             <button type="button" class="close" data-dismiss="alert">×</button>
-                            {{ Session::get('notice') }}
+                            {{ $notice }}
                         </div>
                     </div>
                     @endif
-                    @if (Session::has('message'))
+                    @if ( $message )
                     <div class="row-fluid">
                         <div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert">×</button>
-                            {{ Session::get('message') }}
+                            {{ $message }}
                         </div>
                     </div>
                     @endif
@@ -102,6 +102,7 @@
         {{ HTML::script('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('laravel/js/prettify.js') }}
+		{{-- サイドメニューのリストをスライドさせる --}}
         <script type="text/javascript">
             $(function(){
                 $('#menu-list li>ul').hide().parent().children('a').append('<span style="color:#03a;"> v</span>');
