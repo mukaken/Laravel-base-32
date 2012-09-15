@@ -35,19 +35,19 @@
                 </div>
 				<div class="content">
 					<div class="errors">
-						@if (Session::has('warning'))
+						@if ( $warning )
 							<div style="color:red;">
-								<p>{{ Session::get('warning') }}</p>
+								<p>{{ $warning }}</p>
 							</div>
 						@endif
-						@if (Session::has('notice'))
+						@if ( $notice )
 							<div style="color:orangered;">
-								<p>{{ Session::get('notice') }}</p>
+								<p>{{ $notice }}</p>
 							</div>
 						@endif
-						@if (Session::has('message'))
+						@if ( $message )
 							<div style="color:blue;">
-								<p>{{ Session::get('message') }}</p>
+								<p>{{ $message }}</p>
 							</div>
 						@endif
 					</div>
