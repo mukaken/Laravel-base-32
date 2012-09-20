@@ -25,5 +25,7 @@ Artisan実行
 <hr>
 {{ Form::open( 'command-selected', NULL, array('class' => 'well')) }}
 {{ Form::select( 'commands', $commands, '0' ) }}
+<p>
 {{ Form::button('選択を実行', array('type'=>'submit', 'class'=>'btn btn-primary')) }}
+</p>
 @endsection
