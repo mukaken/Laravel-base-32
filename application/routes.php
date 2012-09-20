@@ -66,13 +66,13 @@ Route::get('login', function()
 	});
 
 Route::post('login',
-	array('before' => 'csrf', function()
+	array( 'before' => 'csrf', function()
 	{
-		if (Form_Login::is_valid()) // 認証前のバリデーションは多分抜いても大丈夫
+		if ( Form_Login::is_valid() ) // 認証前のバリデーションは多分抜いても大丈夫
 		{
-			if (Auth::attempt(array(
-					'username' => Input::get('username'),
-					'password' => Input::get('password'))))
+			if ( Auth::attempt(array(
+					'username'	 => Input::get('username'),
+					'password'	 => Input::get('password') )) )
 			{
 				return Redirect::home()->with('message', __('auth.success')); // ルートへ
 			}
@@ -85,7 +85,7 @@ Route::post('login',
 		{
 			return Redirect::back()->with_input()->with_errors(Form_Login::$validation);
 		}
-	}));
+	} ));
 
 /*
  * ログオフルート
@@ -106,11 +106,11 @@ Route::get('signup', function()
 	});
 
 Route::post('signup',
-	array('before' => 'csrf', function()
+	array( 'before' => 'csrf', function()
 	{
-		if (Form_Signup::is_valid())
+		if ( Form_Signup::is_valid() )
 		{
-			$user = User::create(Input::only(array('username', 'password', 'email'))); // ユーザー作成
+			$user = User::create(Input::only(array( 'username', 'password', 'email' ))); // ユーザー作成
 
 			Auth::login($user->id); // ログインさせる
 
@@ -120,7 +120,7 @@ Route::post('signup',
 		{
 			return Redirect::back()->with_input()->with_errors(Form_Signup::$validation);
 		}
-	}));
+	} ));
 
 /**
  * テンプレートコンポーサー
@@ -134,19 +134,20 @@ Route::post('signup',
  * メッセージを指定できる
  *
  */
-
-View::composer('template', function($view)
+View::composer('template',
+	function($view)
 	{
 		{
-			if (! isset($view->warning))
+			if ( !isset($view->warning) )
 			{
 				$view->warning = Session::get('warning', false);
 			}
-			if (! isset($view->notice))
+			if ( !isset($view->notice) )
 			{
 				$view->notice = Session::get('notice', false);
 			}
-			if (! isset($view->message)) {
+			if ( !isset($view->message) )
+			{
 				$view->message = Session::get('message', false);
 			}
 		}
@@ -158,9 +159,11 @@ View::composer('template', function($view)
  * 当然、実働環境ではコメントにするか、削除すること
  *
  */
-Route::get('command', function()
+Route::get('command',
+	function()
 	{
-		return view('command.artisan');
+		$commands = Command::get();
+		return view('command.artisan')->with('commands', $commands);
 	});
 
 Route::post('command',
@@ -169,14 +172,17 @@ Route::post('command',
 		// バリディーション項目を設定していないため、
 		// 常にtrueになるが、将来追加した時のため、
 		// コードを入れておく
-		if (Form_Command::is_valid())
+		if ( Form_Command::is_valid() )
 		{
-			if (Input::has('command')) {
+			if ( Input::has('command') )
+			{
 				// 入力を空白で区切って配列にする
-				$command = explode(' ',Input::get('command', ''));
-			} else {
+				$command = explode(' ', Input::get('command', ''));
+			}
+			else
+			{
 				// 何も指定されない場合は、ヘルプを出力
-				$command = array('help:commands');
+				$command = array( 'help:commands' );
 			}
 
 			// 出力のバッファリング開始
@@ -188,7 +194,7 @@ Route::post('command',
 				require path('sys').'cli/dependencies'.EXT;
 				Laravel\CLI\Command::run($command);
 			}
-			catch (Exception $ex)
+			catch ( Exception $ex )
 			{
 				// $buff、$ex、どちらのエラーが良いか判断つかず、ペンディング
 				$buff = str_replace(PHP_EOL, '<br />', ob_get_contents());
@@ -201,9 +207,59 @@ Route::post('command',
 			ob_end_clean();
 
 			return Redirect::back()->with_input()->with('message', $buff);
+		}
+		else
+		{
+			return Redirect::back()
+					->with_input()
+					->with_errors(Form_Command::$validation);
+		}
+	});
 
-		} else {
-				return Redirect::back()
+Route::post('command-selected',
+	function()
+	{
+		// バリディーション項目を設定していないため、
+		// 常にtrueになるが、将来追加した時のため、
+		// コードを入れておく
+		if ( Form_Command::is_valid() )
+		{
+			if ( Input::get('commands', '0') != '0' )
+			{
+				// コマンドを空白で区切って配列にする
+						$command = explode(' ', Command::command_string(Input::get('commands', '')));
+			}
+			else
+			{
+						return Redirect::back()->with_input()->with('warning', '実行する項目を選んでください');
+			}
+
+			// 出力のバッファリング開始
+			ob_start();
+
+			try
+			{
+				// コマンド実行
+				require path('sys').'cli/dependencies'.EXT;
+				Laravel\CLI\Command::run($command);
+			}
+			catch ( Exception $ex )
+			{
+				// $buff、$ex、どちらのエラーが良いか判断つかず、ペンディング
+				$buff = str_replace(PHP_EOL, '<br />', ob_get_contents());
+				return Redirect::back()->with_input()->with('warning', $ex->getMessage());
+			}
+
+			$buff = str_replace(PHP_EOL, '<br />', ob_get_contents());
+
+			// 内容を出力せず、バッファリング終了
+			ob_end_clean();
+
+			return Redirect::back()->with_input()->with('message', $buff);
+		}
+		else
+		{
+			return Redirect::back()
 					->with_input()
 					->with_errors(Form_Command::$validation);
 		}
@@ -274,14 +330,14 @@ Route::filter('after', function($response)
 
 Route::filter('csrf', function()
 	{
-		if (Request::forged())
+		if ( Request::forged() )
 			return Response::error('500');
 	});
 
 Route::filter('auth',
 	function()
 	{
-		if (Auth::guest())
+		if ( Auth::guest() )
 			return Redirect::to('login')->with('notice', __('auth.require'));
 	});
 
