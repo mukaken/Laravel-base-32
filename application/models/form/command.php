@@ -11,5 +11,6 @@ class Form_Command extends FormBaseModel\Base {
 	// Validatorで行うと複雑になりすぎる
 	//
     //    'command' => '',
+		'commands' => 'between:0,6'
     );
 }
