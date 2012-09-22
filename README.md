@@ -9,9 +9,9 @@ Laravel 3.2.7
 
 Laravel ver.3.2のサンプルです。実際の動作を見ながら、コードを確認していただくために、公開します。開発のベースとして使用できるように、設定をしています。詳細は[Laravel開発ベースサンプル](http://kore1server.com/laravel-tutorial/312-laravel-32-development-base-sample.html)をご覧ください。
 
-twitter-bootstrapブランチは、その名の通りtwitter bootstrapを使用したバージョンです。twitter bootstrapをベースに利用する場合のために、用意しました。コードがやや複雑になりますので、学習目的やbootstarpを使用しない開発のベースには、original-cssブランチをご利用ください。コードがすっきりとしており、分かりやすくなっています。
+このorignal-cssブランチはLaravelの学習や一般的な開発ベースにご利用いただくために公開しています。他にtwitter-bootstrapブランチも用意し、その名の通りtwitter bootstrapを使用したバージョンです。コードがやや複雑になりますので、学習目的の場合は、まずoriginal-cssをご利用ください。コードがすっきりとしており、分かりやすくなっています。
 
-また、Masterブランチは作業中のため、動作しない場合もあります。
+また、Masterブランチは開発中のブランチのため、動作しないことがあります。
 
 特徴
 ====
