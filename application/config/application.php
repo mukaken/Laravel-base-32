@@ -3,24 +3,26 @@
 // ブラウザの言語設定から、言語を読み込むために追加
 // PHPのintlモジュールが必要
 
-$language_from_browser_setting = value(function()
-	{
-		if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+if ( extension_loaded('init') ) {
+	$language_from_browser_setting = value(function()
 		{
-			$lang = Laravel\Config::get('language.fallback');
-		}
-		else
-		{
-			$lang = substr(Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']), 0, 2);
-		};
+			if ( !isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ) {
+				$lang = Laravel\Config::get('language.fallback');
+			}
+			else {
+				$lang = substr(Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']), 0, 2);
+			};
 
-		if (!in_array($lang, Laravel\Config::get('language.support')))
-		{
-			$lang = Laravel\Config::get('language.fallback');
-		}
+			if ( !in_array($lang, Laravel\Config::get('language.support')) ) {
+				$lang = Laravel\Config::get('language.fallback');
+			}
 
-		return $lang;
-	});
+			return $lang;
+		});
+}
+else {
+	$language_from_browser_setting = 'en';
+}
 
 return array(
 	/*
@@ -120,10 +122,22 @@ return array(
 	  |
 	 */
 
-	// PHPのintl拡張がない、インストールしない場合は、直接言語コードを指定してください。
+	// 使用言語を固定する場合、直接言語コードを指定してください。
 	// 英語なら、'en',日本語なら'ja'です。
 
 	'language' => $language_from_browser_setting,
+	/*
+	  |--------------------------------------------------------------------------
+	  | Supported Languages
+	  |--------------------------------------------------------------------------
+	  |
+	  | These languages may also be supported by your application. If a request
+	  | enters your application with a URI beginning with one of these values
+	  | the default language will automatically be set to that language.
+	  |
+	 */
+
+	'languages' => array( ),
 	/*
 	  |--------------------------------------------------------------------------
 	  | SSL Link Generation
