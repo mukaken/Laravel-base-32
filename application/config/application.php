@@ -1,28 +1,38 @@
 <?php
 
 // ブラウザの言語設定から、言語を読み込むために追加
-// PHPのintlモジュールが必要
 
-if ( extension_loaded('init') ) {
-	$language_from_browser_setting = value(function()
-		{
-			if ( !isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ) {
-				$lang = Laravel\Config::get('language.fallback');
+$language_from_browser_setting = value(function() {
+		if ( !isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ) {
+			return Laravel\Config::get('language.fallback');
+		}
+		else {
+			// ブラウザの言語設定を読み込む
+			$lang = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+			// $langs[言語コード] = プライオリティの形式に変換
+			$langs = array( );
+			foreach ( $lang as $key => $code_priority ) {
+				if ( preg_match('/(.+);q=([0-9\.]+)/', $code_priority, $matched) === 1 ) {
+					$langs[$matched[1]] = $matched[2];
+				}
+				else {
+					$langs[$code_priority] = '1'; // default value
+				}
 			}
-			else {
-				$lang = substr(Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']), 0, 2);
-			};
+			// プライオリティ（配列の値）でソート
+			arsort($langs);
 
-			if ( !in_array($lang, Laravel\Config::get('language.support')) ) {
-				$lang = Laravel\Config::get('language.fallback');
+			foreach ( $langs as $code => $priority ) {
+				// サポート言語として存在するかチェック
+				if ( in_array($code, Laravel\Config::get('language.support')) ) {
+					return $code;
+				}
 			}
-
-			return $lang;
-		});
-}
-else {
-	$language_from_browser_setting = 'en';
-}
+			// 存在しない場合フォールバック言語を使用する
+			return Laravel\Config::get('language.fallback');
+		};
+	});
 
 return array(
 	/*
@@ -126,6 +136,7 @@ return array(
 	// 英語なら、'en',日本語なら'ja'です。
 
 	'language' => $language_from_browser_setting,
+	'languages' => array(),
 	/*
 	  |--------------------------------------------------------------------------
 	  | Supported Languages
