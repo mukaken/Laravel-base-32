@@ -3,13 +3,13 @@ Laravel-base-32
 
 Sample and development base of Laravel ver. 3.2
 
-### Fundation バージョン
+### Foundation バージョン
 
 Laravel 3.2.10
 
 Laravel ver.3.2のサンプルです。実際の動作を見ながら、コードを確認していただくために、公開します。開発のベースとして使用できるように、設定をしています。詳細は[Laravel開発ベースサンプル](http://kore1server.com/laravel-tutorial/312-laravel-32-development-base-sample.html)をご覧ください。
 
-このfundationブランチはCSSフレームワークのFundationを組み込んだバージョンです。一般的な用途やLaravelの学習にはoriginal-cssバージョンをご利用ください。コードがすっきりとして見やすくなっています。
+このfoundationブランチはCSSフレームワークのFoundationを組み込んだバージョンです。一般的な用途やLaravelの学習にはoriginal-cssバージョンをご利用ください。コードがすっきりとして見やすくなっています。
 他にtwitter-bootstrapブランチもあります。その名の通りtwitter bootstrapを使用したバージョンです。
 また、Masterブランチは開発中のブランチのため、動作しないことがあります。
 
@@ -41,3 +41,8 @@ Laravel ver.3.2のサンプルです。実際の動作を見ながら、コー�
 6. ブラウザからpublicへアクセスしてください。トップページが表示されます。
 7. <http://kore1server.com/tutorial/laravel/312-laravel-32-development-base-sample>と<http://kore1server.com/tutorial/laravel/316-development-base-bootstrap-version>を参照し、残りの設定を行なってください。
 8. 初めてLaravelを使用される方は、public/checker/checker.phpへアクセスし、動作環境をチェックすることをおすすめします。PHPモジュールの不足等を確認できます。PHPモジュールは足りなくても、それを使用する機能を使用しなければ動作します。
+
+注意
+====
+
+Foundationはオフキャンバスと呼んでいる、拡張を提供しており、このブランチはこれを利用しています。Foundation本体と使用するJavascriptとCSSが異なっています。また、jquery.offcanval.jsでトップメニューのリンクが動作できないバグがありますので、その部分のコードをコメントアウトしました。
