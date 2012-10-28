@@ -42,5 +42,5 @@ LaravelのGitHubのホームは[github.com/laravel](https://github.com/laravel)�
 
 *参照*
 
- - [コマンドラインでLaravelに貢献する](docs/contrib/command-line)
- - [TortoiseGitを使用し、Laravelに貢献する](docs/contrib/tortoisegit)
+ - [コマンドラインでLaravelに貢献する](/docs/contrib/command-line)
+ - [TortoiseGitでLaravelに貢献する](/docs/contrib/tortoisegit)

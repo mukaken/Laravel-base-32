@@ -80,29 +80,31 @@ linksメソッドは、次のような賢いページのリンクを生成しま
 全てのペジネーションリンク要素は、CSSクラスが使用できます。linksメソッドで生成されるHTML要素の一例をご覧ください：
 
 	<div class="pagination">
-		<a href="foo" class="previous_page">前</a>
+		<ul>
+			<li class="previous_page"><a href="foo">前</a></li>
 
-		<a href="foo">1</a>
-		<a href="foo">2</a>
+			<li><a href="foo">1</a></li>
+			<li><a href="foo">2</a></li>
 
-		<span class="dots">...</span>
+			<li class="dots disabled"><a href="#">...</a></li>
 
-		<a href="foo">11</a>
-		<a href="foo">12</a>
+			<li><a href="foo">11</a></li>
+			<li><a href="foo">12</a></li>
 
-		<span class="current">13</span>
+			<li class="active"><a href="#">13</li>
 
-		<a href="foo">14</a>
-		<a href="foo">15</a>
+			<li><a href="foo">14</a></li>
+			<li><a href="foo">15</a></li>
 
-		<span class="dots">...</span>
+			<li class="dots disabled"><a href="#">...</a></li>
 
-		<a href="foo">25</a>
-		<a href="foo">26</a>
+			<li><a href="foo">25</a></li>
+			<li><a href="foo">26</a></li>
 
-		<a href="foo" class="next_page">次</a>
+			<li class="next_page"><a href="foo">次</a></li>
+		</ul>
 	</div>
 
 結果の最初のページでは、「前」リンクは無効になります。同様に、「次」リンクは結果の最終ページでは、無効になります。生成されるHTMLはこのようになります。
 
-	<span class="disabled prev_page">前</span>
+	<li class="disabled previous_page"><a href="#">前</a></li>

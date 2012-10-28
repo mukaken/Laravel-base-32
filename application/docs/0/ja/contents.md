@@ -4,7 +4,7 @@
 - [インストールと準備](/docs/install)
 	- [動作要件](/docs/install#requirements)
 	- [インストール](/docs/install#installation)
-	- [Server 設定](/docs/install#server-configuration)
+	- [サーバー設定](/docs/install#server-configuration)
 	- [基本設定](/docs/install#basic-configuration)
 	- [環境](/docs/install#environments)
 	- [クリーンURL](/docs/install#cleaner-urls)

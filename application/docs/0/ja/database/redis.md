@@ -43,7 +43,7 @@
 
 	$values = $redis->lrange('names', 5, 10);
 
-引数をコマンドにマジックメソッドで渡していることに注目してください。もちろん、マジックメソッドを使用しなければならないわけでなく、サーバーにコマンドを渡すのには**run**メソッドも使用できます。
+Notice the arguments to the command are simply passed into the magic method. もちろん、マジックメソッドを使用しなければならないわけでなく、サーバーにコマンドを渡すのには**run**メソッドも使用できます。
 
 	$values = $redis->run('lrange', array(5, 10));
 

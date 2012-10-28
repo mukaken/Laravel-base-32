@@ -86,8 +86,8 @@ Bladeはビューを書くことを至高の喜びにしてくれます。Blade�
 	{{-- これがコメントです --}}
 
 	{{--
-		これは a
-		multi-line
+		これは
+		複数行に渡る
 		コメント例です。
 	--}}
 
@@ -117,7 +117,7 @@ Bladeはビューを書くことを至高の喜びにしてくれます。Blade�
 #### If Statement:
 
 	@if ( $message == true )
-		I'm displaying the message!
+		メッセージを出力中！
 	@endif
 
 #### If Else Statement:
@@ -131,11 +131,11 @@ Bladeはビューを書くことを至高の喜びにしてくれます。Blade�
 #### Else If Statement:
 
 	@if ( $message == 'success' )
-		It was a success!
+		成功した！
 	@elseif ( $message == 'error' )
-		An error occurred.
+		エラーが起きた。
 	@else
-		Did it work?
+		ここに来るのかな？
 	@endif
 
 #### For Else Statement:
@@ -152,7 +152,7 @@ Bladeはビューを書くことを至高の喜びにしてくれます。Blade�
 		Login
 	@endunless
 
-	// 同じ内容 to...
+	// 同じ内容...
 
 	<?php if ( ! Auth::check()): ?>
 		Login
