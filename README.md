@@ -3,7 +3,7 @@ Laravel-base-32
 
 Sample and development base of Laravel ver. 3.2
 
-### ベースバージョン
+### twitter-bootstrapバージョン
 
 Laravel 3.2.10
 
