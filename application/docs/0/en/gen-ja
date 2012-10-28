@@ -1,0 +1,6 @@
+find . -name \*.md | awk '{
+  md = $0
+  sed = gensub(/\.md/, ".sed", $0)
+  out = gensub("./", "../ja/", $0)
+  print "sed -f", sed, "<", md, "| sed -f contents.sed >", out
+}' | sh

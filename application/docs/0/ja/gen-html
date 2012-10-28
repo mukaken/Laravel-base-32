@@ -1,0 +1,7 @@
+find . -name \*.md | awk '{
+  in_file = $0
+  out = $0
+  sub("./", "../html/", out)
+  sub(".md", ".html", out)
+  print "markdown.php", in_file, "| sed -f 'html-cleanup.sed' | awk -f 'html-join.awk' | uniq >", out
+}' | sh

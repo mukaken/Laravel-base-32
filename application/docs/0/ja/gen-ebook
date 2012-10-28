@@ -1,0 +1,6 @@
+find . -name \*.md | awk '{
+  md = $0
+  out = gensub("./", "../ebook/", $0)
+  print "awk -f ebook.awk", md, "| sed -f ebook.sed | uniq >", out
+#  print "sed -f ebook.sed <", md, "| uniq >", out
+}' | sh

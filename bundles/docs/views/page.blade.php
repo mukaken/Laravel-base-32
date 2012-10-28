@@ -29,7 +29,8 @@
 	{{ HTML::link($ja_link, '日本語') }} /
 	{{ HTML::link($en_link, 'English') }}
 	&nbsp;&nbsp;
-	{{ HTML::link('/docs/home/0', '最新バージョン(3.2.7)トップ') }} /
+	{{ HTML::link('/docs/home/0', '最新バージョン(3.2.8-10)トップ') }} /
+	{{ HTML::link('/docs/home/327', '3.2.7トップ') }} /
 	{{ HTML::link('/docs/home/325', '3.2.5トップ') }} /
 	{{ HTML::link('/docs/home/324', '3.2.4トップ') }} /
 	{{ HTML::link('/docs/home/323', '3.2.3トップ') }}
