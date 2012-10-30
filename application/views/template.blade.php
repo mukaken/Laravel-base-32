@@ -15,6 +15,8 @@
 			@yield('title')
 		</title>
 
+		{{ HTML::style('css/prittify.css') }}
+
 		<!-- Included CSS Files (Compressed) -->
 		{{ HTML::style('foundation/stylesheets/foundation.css') }}
 		{{ HTML::style('foundation/stylesheets/offcanvas.css') }}
@@ -29,7 +31,7 @@
 
 	</head>
 
-	<body id="page" class="off-canvas slide-nav">
+	<body id="page" class="off-canvas slide-nav" onload="prettyPrint()">
 
 		<div class="container">
 
@@ -61,7 +63,7 @@
 						</ul>
 					</nav>
 
-					<!-- モバイル表示メニュー -->
+					<!-- モバイル時操作メニュー -->
 					<p class="show-for-small">
 						<a class='menu-button button' id="menuButton" href="#menu">メニュー</a>
 						<a class='sidebar-button button' id="sidebarButton" href="#sidebar">ナビ</a>
