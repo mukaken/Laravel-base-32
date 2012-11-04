@@ -160,7 +160,7 @@ class View implements ArrayAccess {
 			return $path;
 		}
 
-		throw new \Exception("View [$view] doesn't exist.");
+		throw new \Exception("ビュー[$view]は存在していません。");
 	}
 
 	/**
@@ -583,7 +583,7 @@ class View implements ArrayAccess {
 			return $this->with($key, $parameters[0]);
 		}
 
-		throw new \Exception("Method [$method] is not defined on the View class.");
+		throw new \Exception("メソッド[$method]はViewクラスで定義されていません。");
 	}
 
 }

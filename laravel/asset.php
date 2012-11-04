@@ -343,11 +343,11 @@ class Asset_Container {
 		}
 		elseif ($dependency === $asset)
 		{
-			throw new \Exception("Asset [$asset] is dependent on itself.");
+			throw new \Exception("アセット[$asset]が、自分自身に依存しています。");
 		}
 		elseif (isset($assets[$dependency]) and in_array($asset, $assets[$dependency]['dependencies']))
 		{
-			throw new \Exception("Assets [$asset] and [$dependency] have a circular dependency.");
+			throw new \Exception("アセット[$asset]と[$dependency]が回帰的に依存しています。");
 		}
 
 		return true;

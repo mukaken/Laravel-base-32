@@ -878,7 +878,7 @@ class Query {
 			return $this->aggregate(strtoupper($method), (array) $parameters[0]);
 		}
 
-		throw new \Exception("Method [$method] is not defined on the Query class.");
+		throw new \Exception("メソッド[$method]はクエリークラスで定義されていません。");
 	}
 
 }

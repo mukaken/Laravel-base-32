@@ -58,7 +58,7 @@ class Auth {
 				return new Auth\Drivers\Eloquent(Config::get('auth.model'));
 
 			default:
-				throw new \Exception("Auth driver {$driver} is not supported.");
+				throw new \Exception("認証ドライバー{$driver}はサポートされていません。");
 		}
 	}
 
