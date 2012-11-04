@@ -1205,7 +1205,7 @@ class Validator {
 			return call_user_func_array(static::$validators[$method], $parameters);
 		}
 
-		throw new \Exception("Method [$method] does not exist.");
+		throw new \Exception("メソッド[$method]は存在していません。");
 	}
 
 }

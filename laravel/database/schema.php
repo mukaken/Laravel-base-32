@@ -187,7 +187,7 @@ class Schema {
 				return new Schema\Grammars\SQLite($connection);
 		}
 
-		throw new \Exception("Schema operations not supported for [$driver].");
+		throw new \Exception("ドライバー[$driver]はスキーマ操作をサポートしていません。");
 	}
 
 }
