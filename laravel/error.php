@@ -22,7 +22,7 @@ class Error {
 
 		if (str_contains($exception->getFile(), 'eval()') and str_contains($exception->getFile(), 'laravel/view.php'))
 		{
-			$message = 'Error rendering view: ['.View::$last['name'].']'.PHP_EOL.PHP_EOL.$message;
+			$message = 'エラーレンダリングビュー:['.View::$last['name'].']'.PHP_EOL.PHP_EOL.$message;
 
 			$file = View::$last['path'];
 		}
@@ -32,16 +32,16 @@ class Error {
 		// View in case the problem is in the View class.
 		if (Config::get('error.detail'))
 		{
-			echo "<html><h2>Unhandled Exception</h2>
-				  <h3>Message:</h3>
+			echo "<html><h2>処理されていない例外</h2>
+				  <h3>メッセージ:</h3>
 				  <pre>".$message."</pre>
-				  <h3>Location:</h3>
-				  <pre>".$file." on line ".$exception->getLine()."</pre>";
+				  <h3>場所:</h3>
+				  <pre>".$file."(".$exception->getLine()."行目)</pre>";
 
 			if ($trace)
 			{
 				echo "
-				  <h3>Stack Trace:</h3>
+				  <h3>スタックトレース:</h3>
 				  <pre>".$exception->getTraceAsString()."</pre></html>";
 			}
 		}

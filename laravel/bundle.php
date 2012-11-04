@@ -87,7 +87,7 @@ class Bundle {
 
 		if ( ! static::exists($bundle))
 		{
-			throw new \Exception("Bundle [$bundle] has not been installed.");
+			throw new \Exception("バンドル[$bundle]はインストールされていません。");
 		}
 
 		// Each bundle may have a start script which is responsible for preparing
