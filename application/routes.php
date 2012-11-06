@@ -35,8 +35,7 @@
 /*
  * ルート、オリジナルのまま変更なし
  */
-Route::get('/', function()
-	{
+Route::get('/', function() {
 		return View::make('home.index');
 	});
 
@@ -44,45 +43,37 @@ Route::get('/', function()
  * 管理者エリアのトップページ（ダミー）
  */
 
-Route::get('admin/home', function()
-	{
+Route::get('admin/home', function() {
 		return view('admin.admin-home');
 	});
 
 /**
  * ドキュメント、日本語用に変更
  */
-Route::get('docs', function()
-	{
+Route::get('docs', function() {
 		return Redirect::to('docs/home');
 	});
 
 /*
  * ログインフォーム
  */
-Route::get('login', function()
-	{
+Route::get('login', function() {
 		return view('form.login');
 	});
 
 Route::post('login',
-	array( 'before' => 'csrf', function()
-	{
-		if ( Form_Login::is_valid() ) // 認証前のバリデーションは多分抜いても大丈夫
-		{
+	array( 'before' => 'csrf', function() {
+		if ( Form_Login::is_valid() ) { // 認証前のバリデーションは多分抜いても大丈夫
 			if ( Auth::attempt(array(
-					'username'	 => Input::get('username'),
-					'password'	 => Input::get('password') )) )
-			{
+					'username' => Input::get('username'),
+					'password' => Input::get('password') )) ) {
 				return Redirect::home()->with('message', __('auth.success')); // ルートへ
 			}
-			else
-			{
+			else {
 				return Redirect::back()->with_input()->with('warning', __('auth.failed'));
 			}
 		}
-		else
-		{
+		else {
 			return Redirect::back()->with_input()->with_errors(Form_Login::$validation);
 		}
 	} ));
@@ -90,8 +81,7 @@ Route::post('login',
 /*
  * ログオフルート
  */
-Route::get('logout', function()
-	{
+Route::get('logout', function() {
 		Auth::logout();
 
 		return Redirect::home()->with('message', __('auth.logoff'));
@@ -100,24 +90,20 @@ Route::get('logout', function()
 /*
  * サインアップフォーム
  */
-Route::get('signup', function()
-	{
+Route::get('signup', function() {
 		return view('form.signup');
 	});
 
 Route::post('signup',
-	array( 'before' => 'csrf', function()
-	{
-		if ( Form_Signup::is_valid() )
-		{
+	array( 'before' => 'csrf', function() {
+		if ( Form_Signup::is_valid() ) {
 			$user = User::create(Input::only(array( 'username', 'password', 'email' ))); // ユーザー作成
 
 			Auth::login($user->id); // ログインさせる
 
 			return Redirect::home()->with('message', __('auth.created')); // ルートへ
 		}
-		else
-		{
+		else {
 			return Redirect::back()->with_input()->with_errors(Form_Signup::$validation);
 		}
 	} ));
@@ -135,19 +121,14 @@ Route::post('signup',
  *
  */
 View::composer('template',
-	function($view)
-	{
-		{
-			if ( !isset($view->warning) )
-			{
+	function($view) { {
+			if ( !isset($view->warning) ) {
 				$view->warning = Session::get('warning', false);
 			}
-			if ( !isset($view->notice) )
-			{
+			if ( !isset($view->notice) ) {
 				$view->notice = Session::get('notice', false);
 			}
-			if ( !isset($view->message) )
-			{
+			if ( !isset($view->message) ) {
 				$view->message = Session::get('message', false);
 			}
 		}
@@ -160,27 +141,22 @@ View::composer('template',
  *
  */
 Route::get('command',
-	function()
-	{
+	function() {
 		$commands = Command::get();
 		return view('command.artisan')->with('commands', $commands);
 	});
 
 Route::post('command',
-	function()
-	{
+	function() {
 		// バリディーション項目を設定していないため、
 		// 常にtrueになるが、将来追加した時のため、
 		// コードを入れておく
-		if ( Form_Command::is_valid() )
-		{
-			if ( Input::has('command') )
-			{
+		if ( Form_Command::is_valid() ) {
+			if ( Input::has('command') ) {
 				// 入力を空白で区切って配列にする
 				$command = explode(' ', Input::get('command', ''));
 			}
-			else
-			{
+			else {
 				// 何も指定されない場合は、ヘルプを出力
 				$command = array( 'help:commands' );
 			}
@@ -188,14 +164,12 @@ Route::post('command',
 			// 出力のバッファリング開始
 			ob_start();
 
-			try
-			{
+			try {
 				// コマンド実行
 				require path('sys').'cli/dependencies'.EXT;
 				Laravel\CLI\Command::run($command);
 			}
-			catch ( Exception $ex )
-			{
+			catch ( Exception $ex ) {
 				// $buff、$ex、どちらのエラーが良いか判断つかず、ペンディング
 				$buff = str_replace(PHP_EOL, '<br />', ob_get_contents());
 				return Redirect::back()->with_input()->with('warning', $ex->getMessage());
@@ -208,8 +182,7 @@ Route::post('command',
 
 			return Redirect::back()->with_input()->with('message', $buff);
 		}
-		else
-		{
+		else {
 			return Redirect::back()
 					->with_input()
 					->with_errors(Form_Command::$validation);
@@ -217,34 +190,28 @@ Route::post('command',
 	});
 
 Route::post('command-selected',
-	function()
-	{
+	function() {
 		// バリディーション項目を設定していないため、
 		// 常にtrueになるが、将来追加した時のため、
 		// コードを入れておく
-		if ( Form_Command::is_valid() )
-		{
-			if ( Input::get('commands', '0') != '0' )
-			{
+		if ( Form_Command::is_valid() ) {
+			if ( Input::get('commands', '0') != '0' ) {
 				// コマンドを空白で区切って配列にする
-						$command = explode(' ', Command::command_string(Input::get('commands', '')));
+				$command = explode(' ', Command::command_string(Input::get('commands', '')));
 			}
-			else
-			{
-						return Redirect::back()->with_input()->with('warning', '実行する項目を選んでください');
+			else {
+				return Redirect::back()->with_input()->with('warning', '実行する項目を選んでください');
 			}
 
 			// 出力のバッファリング開始
 			ob_start();
 
-			try
-			{
+			try {
 				// コマンド実行
 				require path('sys').'cli/dependencies'.EXT;
 				Laravel\CLI\Command::run($command);
 			}
-			catch ( Exception $ex )
-			{
+			catch ( Exception $ex ) {
 				// $buff、$ex、どちらのエラーが良いか判断つかず、ペンディング
 				$buff = str_replace(PHP_EOL, '<br />', ob_get_contents());
 				return Redirect::back()->with_input()->with('warning', $ex->getMessage());
@@ -257,8 +224,7 @@ Route::post('command-selected',
 
 			return Redirect::back()->with_input()->with('message', $buff);
 		}
-		else
-		{
+		else {
 			return Redirect::back()
 					->with_input()
 					->with_errors(Form_Command::$validation);
@@ -280,13 +246,11 @@ Route::post('command-selected',
   |
  */
 
-Event::listen('404', function()
-	{
+Event::listen('404', function() {
 		return Response::error('404');
 	});
 
-Event::listen('500', function()
-	{
+Event::listen('500', function() {
 		return Response::error('500');
 	});
 
@@ -318,25 +282,21 @@ Event::listen('500', function()
   |
  */
 
-Route::filter('before', function()
-	{
+Route::filter('before', function() {
 // アプリケーションに対する全てのリクエストの前に行うコードをここに記述
 	});
 
-Route::filter('after', function($response)
-	{
+Route::filter('after', function($response) {
 // アプリケーションに対する全てのリクエストの後に行うコードをここに記述
 	});
 
-Route::filter('csrf', function()
-	{
+Route::filter('csrf', function() {
 		if ( Request::forged() )
 			return Response::error('500');
 	});
 
 Route::filter('auth',
-	function()
-	{
+	function() {
 		if ( Auth::guest() )
 			return Redirect::to('login')->with('notice', __('auth.require'));
 	});
