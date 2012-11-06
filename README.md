@@ -41,3 +41,16 @@ twitter-bootstrapブランチは、その名の通りtwitter bootstrapを使用�
 6. ブラウザからpublicへアクセスしてください。トップページが表示されます。
 7. <http://kore1server.com/tutorial/laravel/312-laravel-32-development-base-sample>と<http://kore1server.com/tutorial/laravel/316-development-base-bootstrap-version>を参照し、残りの設定を行なってください。
 8. 初めてLaravelを使用される方は、public/checker/checker.phpへアクセスし、動作環境をチェックすることをおすすめします。PHPモジュールの不足等を確認できます。PHPモジュールは足りなくても、それを使用する機能を使用しなければ動作します。
+
+統合環境コード補完用コード生成
+==============================
+
+統合環境では、クラスやメソッドの補完が利用できるものが多いです。しかし最近の小型フレームワークでは、統合環境よりも、テキストエディターで作成しやすくするため、クラス名の省略形を使用しています。そのため、統合環境を使用するメリットである、コードの補完が上手く働きません。
+
+補完を行わせるため、省略名とメソッドの定義元のクラスを定義付ける、ダミーコードを利用すれば、補完を上手く行うことができます。そのダミーコードを生成するLaravelのタスクを含んでいます。
+
+	// 生成コードを端末で確認
+	php artisan ccc
+
+	// 生成コードをapplication/ccc.phpへ保存
+	php artisan ccc:save
