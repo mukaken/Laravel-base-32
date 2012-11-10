@@ -79,7 +79,7 @@ class Ccc_Task extends Task
 	 */
 	public function save($arguments)
 	{
-		$outfile = count($arguments) == 0 ? $outfile = path('app')."ccc.php" : $arguments[0];
+		$outfile = count($arguments) == 0 ? path('app')."ccc.php" : $arguments[0];
 
 		$codes = $this->generator();
 
