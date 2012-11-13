@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>
-			@section('title')
-				User CRUD チュートリアル
-			@yield_section
-		</title>
+		@section('title')
+			User CRUD チュートリアル
+		@yield_section
+	</title>
     </head>
     <body>
 		{{-- ナビゲーション --}}
@@ -19,7 +19,7 @@
 			{{ HTML::link_to_route('listUsers', 'ユーザー一覧') }}
 			{{ HTML::link_to_route('addUser', 'ユーザー作成') }}
 		@yield_section
-		{{-- エラーメッセージ --}}
+		{{-- 表示メッセージ --}}
 		@if ( $warning )
 		<p style="color:red;">
 			{{ $warning }}

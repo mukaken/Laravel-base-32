@@ -33,13 +33,13 @@ class User_Controller extends Base_Controller
 		// POSTでフォームの処理を行うため、理にかなっている
 		$this->filter('before', 'csrf')->on('post');
 
-		// 認証が必要のないアクションを明示的に指定
+		// 認証が必要のないアクションを明示的に指定する。
 		// exceptで指定することで、項目の指定し忘れにより
 		// アクセスされてしまうことを防げるため
 		// セキュリティー的に有利なコーディング
 		//
 		// ユーザ自身に登録を行わせる前提のため
-		// この場合、create飲みを除外している
+		// この場合、createアクションのみを除外している
 		// もし、イントラネットなどで管理者だけに
 		// 登録させるのであれば、全アクションに認証フィルターを
 		// かけるべき
@@ -88,12 +88,14 @@ class User_Controller extends Base_Controller
 			// そのモデルを返す。追加できなかった場合はfalseを返す。
 			$user = User::create(array_only($inputs, array( 'username', 'password', 'email' )));
 			if ( $user === false ) {
-				return Redirct::to_route('addUser')->with('warning', 'ユーザーの追加に失敗しました。管理者に連絡してください。');
+				return Redirct::to_route('addUser')
+					->with('warning', 'ユーザーの追加に失敗しました。管理者に連絡してください。');
 			}
 			else {
 				// 登録成功。お好きなページヘリダイレクト
 				// この場合、続けてユーザ登録することも考え、ユーザ登録ページヘ
-				return Redirect::to_route('addUser')->with('message', 'ユーザーを登録しました。');
+				return Redirect::to_route('addUser')
+					->with('message', 'ユーザーを登録しました。');
 			}
 		}
 		else {
@@ -104,7 +106,7 @@ class User_Controller extends Base_Controller
 			// 全入力項目をフラッシュデーターとしてセッションに保存
 			// withはキーと値をフラッシュデーターとしてセッションに保存
 			return Redirect::to_route('addUser')->with_errors($val->errors)->with_input()
-					->with('notice', '以下の項目を修正してください。');
+				->with('notice', '以下の項目を修正してください。');
 		}
 	}
 
@@ -129,7 +131,7 @@ class User_Controller extends Base_Controller
 		// フェールセーフのため
 		if ( $id == null ) {
 			return Redirect::home()
-					->with('notice', '対象を指定せず、ユーザーを削除しようとしています。');
+				->with('notice', '対象を指定せず、ユーザーを削除しようとしています。');
 		}
 
 		$user = User::find($id);
@@ -138,7 +140,7 @@ class User_Controller extends Base_Controller
 		// nullが帰ってくる
 		if ( $user == null ) {
 			return Redirect::back()
-					->with('notice', '存在しないユーザーを削除しようとしています。');
+				->with('notice', '存在しないユーザーを削除しようとしています。');
 		}
 
 		$user->delete();
@@ -153,14 +155,14 @@ class User_Controller extends Base_Controller
 		// フェールセーフのため
 		if ( $id == null ) {
 			return Redirect::home()
-					->with('notice', '対象を指定せず、ユーザーを表示しようとしています。');
+				->with('notice', '対象を指定せず、ユーザーを表示しようとしています。');
 		}
 
 		$user = User::find($id);
 
 		if ( $user == null ) {
 			return Redirect::back()
-					->with('notice', '存在しないユーザーを表示しようとしています。');
+				->with('notice', '存在しないユーザーを表示しようとしています。');
 		}
 
 		return view('user.show')->with('user', $user);
@@ -172,7 +174,7 @@ class User_Controller extends Base_Controller
 		// フェールセーフのため
 		if ( $id == null ) {
 			return Redirect::home()
-					->with('notice', '対象を指定せず、ユーザーを更新しようとしています。');
+				->with('notice', '対象を指定せず、ユーザーを更新しようとしています。');
 		}
 
 		if ( Input::had('id') ) {
@@ -186,7 +188,7 @@ class User_Controller extends Base_Controller
 			$user = User::find($id);
 			if ( $user == null ) {
 				return Redirect::back()
-						->with('notice', '存在しないユーザーを更新しようとしています。');
+					->with('notice', '存在しないユーザーを更新しようとしています。');
 			}
 			$data = array(
 				'id' => $user->id,
@@ -204,11 +206,14 @@ class User_Controller extends Base_Controller
 		// フェールセーフのため
 		if ( $id == null ) {
 			return Redirect::home()
-					->with('notice', '対象を指定せず、ユーザーを更新しようとしています。');
+				->with('notice', '対象を指定せず、ユーザーを更新しようとしています。');
 		}
 
 		$rules = array(
 			'id' => 'required|integer',
+			// uniqueにidを指定した場合、
+			// そのレコードはチェックの対象外となる
+			// つまり、更新時に便利
 			'username' => 'required|unique:users,username,'.$id,
 //			'old_password' => '',
 			'password' => 'confirmed',
@@ -231,8 +236,8 @@ class User_Controller extends Base_Controller
 				// 旧パスワードのチェック
 				!Hash::check($inputs['old_password'], $user->password) ) {
 				return Redirect::to_route('updateUser', array( $user->id ))
-						->with_input()
-						->with('notice', '旧パスワードが一致しません');
+					->with_input()
+					->with('notice', '旧パスワードが一致しません');
 			}
 			$user->username = Input::get('username');
 			$user->email = Input::get('email');
@@ -240,13 +245,13 @@ class User_Controller extends Base_Controller
 
 			$user->save();
 			return Redirect::to_route('updateUser', array( $inputs['id'] ))
-					->with('message', 'ユーザー情報を更新しました。');
+				->with('message', 'ユーザー情報を更新しました。');
 		}
 		else {
 			// バリデーションエラー
 			return Redirect::to_route('updateUser', array( Input::get('id') ))
-					->with_errors($val->errors)->with_input()
-					->with('notice', '以下の項目を修正してください。');
+				->with_errors($val->errors)->with_input()
+				->with('notice', '以下の項目を修正してください。');
 		}
 	}
 

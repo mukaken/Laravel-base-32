@@ -6,7 +6,6 @@
  * ルートは全部名前付き
  * バンドルを使用しない
  * コントローラーによるルーティングを採用
- * （userのみのためUserモデルに押しこむ）
  */
 
 // 'home'ルートの定義
@@ -64,6 +63,8 @@ View::composer('template',
 	});
 
 Event::listen('404', function() {
+		// もし、オリジナル404ページを表示したい場合、
+		// return view()で指定することもできる
 		return Response::error('404');
 	});
 
@@ -79,13 +80,20 @@ Route::filter('after', function($response) {
 		// Do stuff after every request to your application...
 	});
 
+// CSRFフィルターの定義
 Route::filter('csrf', function() {
 		if ( Request::forged() )
+			// ここでは内部エラーにしているが、
+			// 他の処理が良ければ、自由に変更できる
 			return Response::error('500');
 	});
 
+// 認証用のauthフィルター定義
 Route::filter('auth',
 	function() {
 		if ( Auth::guest() )
 			return Redirect::to_route('login')->with('message', 'ログインが必要です。');
 	});
+// CSRFフィルターもauthフィルターも特殊なフィルターでなく、一般的なフィルター
+// ここで定義していなければ、使えないし、別の名前で作成することも、
+// 内容を自由に変更することもできる。
