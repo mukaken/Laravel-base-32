@@ -68,7 +68,9 @@ class User_Controller extends Base_Controller
 		 * バリデーションルール
 		 */
 		$rules = array(
-			'username' => 'required|unique:users',
+			// ユーザー名など表示される項目は特に
+			// セキュリティーのため文字種を必ず指定する
+			'username' => 'required|alpha_dash|unique:users',
 			'password' => 'required|confirmed',
 			'password_confirmation' => 'required|same:password',
 			'email' => 'required|email|unique:users',
@@ -214,7 +216,7 @@ class User_Controller extends Base_Controller
 			// uniqueにidを指定した場合、
 			// そのレコードはチェックの対象外となる
 			// つまり、更新時に便利
-			'username' => 'required|unique:users,username,'.$id,
+			'username' => 'required|alpha_dash|unique:users,username,'.$id,
 //			'old_password' => '',
 			'password' => 'confirmed',
 			'password_confirmation' => 'same:password',
@@ -239,11 +241,13 @@ class User_Controller extends Base_Controller
 					->with_input()
 					->with('notice', '旧パスワードが一致しません');
 			}
+
+			// 更新処理
 			$user->username = Input::get('username');
 			$user->email = Input::get('email');
 			$user->password = empty($inputs['password']) ? $user->password : $inputs['password'];
-
 			$user->save();
+			
 			return Redirect::to_route('updateUser', array( $inputs['id'] ))
 				->with('message', 'ユーザー情報を更新しました。');
 		}

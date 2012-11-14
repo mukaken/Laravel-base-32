@@ -28,7 +28,7 @@ class Login_Controller extends Base_Controller
 	public function post_login()
 	{
 		$rules = array(
-			'username' => 'required',
+			'username' => 'required|alpha_dash',
 			'password' => 'required',
 		);
 
