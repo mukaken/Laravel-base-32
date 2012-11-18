@@ -64,9 +64,7 @@ Route::get('login', function() {
 Route::post('login',
 	array( 'before' => 'csrf', function() {
 		if ( Form_Login::is_valid() ) { // 認証前のバリデーションは多分抜いても大丈夫
-			if ( Auth::attempt(array(
-					'username' => Input::get('username'),
-					'password' => Input::get('password') )) ) {
+			if ( Auth::attempt(Input::only(array('username', 'password'))) ){
 				return Redirect::home()->with('message', __('auth.success')); // ルートへ
 			}
 			else {
