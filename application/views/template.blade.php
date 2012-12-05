@@ -130,11 +130,11 @@
 		{{ HTML::script('foundation/javascripts/foundation.min.js') }}
 
 		<!-- Combine and Compress These JS Files -->
-		{{ HTML::script('foundation/javascripts/jquery.reveal.js') }}
+<!--		{{ HTML::script('foundation/javascripts/jquery.reveal.js') }}
 		{{ HTML::script('foundation/javascripts/jquery.orbit-1.4.0.js') }}
 		{{ HTML::script('foundation/javascripts/jquery.customforms.js') }}
 		{{ HTML::script('foundation/javascripts/jquery.placeholder.min.js') }}
-		{{ HTML::script('foundation/javascripts/jquery.tooltips.js') }}
+		{{ HTML::script('foundation/javascripts/jquery.tooltips.js') }}-->
 		<!-- End Combine and Compress These JS Files -->
 
 		<!-- Initialize JS Plugins -->
