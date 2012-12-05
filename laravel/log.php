@@ -21,7 +21,7 @@ class Log {
 	 */
 	protected static function exception_line($e)
 	{
-		return $e->getMessage().'(ファイル:'.$e->getFile().' '.$e->getLine().'行目)';
+		return $e->getMessage().' in '.$e->getFile().' on line '.$e->getLine();
 	}
 
 	/**

@@ -281,7 +281,7 @@ class URL {
 	{
 		if (is_null($route = Routing\Router::find($name)))
 		{
-			throw new \Exception("未定義なルート[$name]のためURL生成でエラー発生");
+			throw new \Exception("Error creating URL for undefined route [$name].");
 		}
 
 		// To determine whether the URL should be HTTPS or not, we look for the "https"

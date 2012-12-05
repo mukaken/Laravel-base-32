@@ -80,7 +80,7 @@ class Cache {
 				return new Cache\Drivers\Database(Config::get('cache.key'));
 
 			default:
-				throw new \Exception("キャッシュドライバー{$driver}はサポートされていません。");
+				throw new \Exception("Cache driver {$driver} is not supported.");
 		}
 	}
 

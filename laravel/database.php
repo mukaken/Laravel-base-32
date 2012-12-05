@@ -46,7 +46,7 @@ class Database {
 
 			if (is_null($config))
 			{
-				throw new \Exception("[$connection]のデータベース接続は定義されていません。");
+				throw new \Exception("Database connection is not defined for [$connection].");
 			}
 
 			static::$connections[$connection] = new Connection(static::connect($config), $config);
@@ -96,7 +96,7 @@ class Database {
 				return new Database\Connectors\SQLServer;
 
 			default:
-				throw new \Exception("データベースドライバー[$driver]はサポートされていません。");
+				throw new \Exception("Database driver [$driver] is not supported.");
 		}
 	}
 
