@@ -74,7 +74,7 @@ class Redis {
 		{
 			if (is_null($config = Config::get("database.redis.{$name}")))
 			{
-				throw new \Exception("Redisデータベース[$name]は定義されていません。");
+				throw new \Exception("Redis database [$name] is not defined.");
 			}
 
 			extract($config);
@@ -120,7 +120,7 @@ class Redis {
 		switch (substr($response, 0, 1))
 		{
 			case '-':
-				throw new \Exception('Redisエラー:'.substr(trim($response), 4));
+				throw new \Exception('Redis error: '.substr(trim($response), 4));
 			
 			case '+':
 			case ':':
@@ -133,7 +133,7 @@ class Redis {
 				return $this->multibulk($response);
 			
 			default:
-				throw new \Exception("未知のRedisレスポンス:".substr($response, 0, 1));
+				throw new \Exception("Unknown Redis response: ".substr($response, 0, 1));
 		}
 	}
 
@@ -150,7 +150,7 @@ class Redis {
 
 		if ($this->connection === false)
 		{
-			throw new \Exception("Redis接続でのエラー: {$error} - {$message}");
+			throw new \Exception("Error making Redis connection: {$error} - {$message}");
 		}
 
 		$this->select($this->database);

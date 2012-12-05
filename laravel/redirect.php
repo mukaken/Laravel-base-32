@@ -110,7 +110,7 @@ class Redirect extends Response {
 	{
 		if (Config::get('session.driver') == '')
 		{
-			throw new \Exception('フラッシュデーターを使用する前に、セッションドライバーを設定してください。');
+			throw new \Exception('A session driver must be set before setting flash data.');
 		}
 
 		Session::flash($key, $value);
