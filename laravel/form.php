@@ -612,7 +612,7 @@ class Form {
 			return call_user_func_array(static::$macros[$method], $parameters);
 		}
 
-		throw new \Exception("メソッド[$method]は存在していません。");
+		throw new \Exception("Method [$method] does not exist.");
 	}
 
 }

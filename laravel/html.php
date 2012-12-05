@@ -173,6 +173,8 @@ class HTML {
 	public static function link_to_asset($url, $title = null, $attributes = array(), $https = null)
 	{
 		$url = URL::to_asset($url, $https);
+		
+		if (is_null($title)) $title = $url;
 
 		return '<a href="'.$url.'"'.static::attributes($attributes).'>'.static::entities($title).'</a>';
 	}
@@ -443,7 +445,7 @@ class HTML {
 	        return call_user_func_array(static::$macros[$method], $parameters);
 	    }
 
-	    throw new \Exception("メソッド[$method]は存在していません。");
+	    throw new \Exception("Method [$method] does not exist.");
 	}
 
 }

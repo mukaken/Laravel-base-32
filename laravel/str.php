@@ -373,7 +373,7 @@ class Str {
 				return '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 			default:
-				throw new \Exception("不正なランダム文字列タイプ:[$type]");
+				throw new \Exception("Invalid random string type [$type].");
 		}
 	}
 

@@ -85,7 +85,7 @@ class Session {
 				return new Session\Drivers\Redis(Cache::driver('redis'));
 
 			default:
-				throw new \Exception("セッションドライバー[$driver]はサポートされていません。");
+				throw new \Exception("Session driver [$driver] is not supported.");
 		}
 	}
 
@@ -106,7 +106,7 @@ class Session {
 	{
 		if (static::started()) return static::$instance;
 
-		throw new \Exception("セッションを使用する前にドライバーを設定してください。");
+		throw new \Exception("A driver must be set before using the session.");
 	}
 
 	/**

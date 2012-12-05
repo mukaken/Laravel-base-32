@@ -107,7 +107,7 @@ class Asset_Container {
 	 * @param  string  $source
 	 * @param  array   $dependencies
 	 * @param  array   $attributes
-	 * @return void
+	 * @return Asset_Container
 	 */
 	public function add($name, $source, $dependencies = array(), $attributes = array())
 	{
@@ -343,11 +343,11 @@ class Asset_Container {
 		}
 		elseif ($dependency === $asset)
 		{
-			throw new \Exception("アセット[$asset]が、自分自身に依存しています。");
+			throw new \Exception("Asset [$asset] is dependent on itself.");
 		}
 		elseif (isset($assets[$dependency]) and in_array($asset, $assets[$dependency]['dependencies']))
 		{
-			throw new \Exception("アセット[$asset]と[$dependency]が回帰的に依存しています。");
+			throw new \Exception("Assets [$asset] and [$dependency] have a circular dependency.");
 		}
 
 		return true;

@@ -146,7 +146,7 @@ class Crypter {
 			// encrypted value seems to have been changed.
 			else
 			{
-				throw new \Exception("解読エラー。パディングが無効です。");
+				throw new \Exception("Decryption error. Padding is invalid.");
 			}
 		}
 

@@ -49,7 +49,7 @@ class Memcached {
 
 		if ($memcache->getVersion() === false)
 		{
-			throw new \Exception('Memcached接続が確立できません。');
+			throw new \Exception('Could not establish memcached connection.');
 		}
 
 		return $memcache;
