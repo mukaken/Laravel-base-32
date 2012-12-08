@@ -1,8 +1,15 @@
 <?php
 
-// ブラウザの言語設定から、言語を読み込むために追加
-
+/*
+ * ブラウザの言語設定から、言語を読み込むために追加
+ *
+ * 一度、変数に受け取るのは、クロージャーとして直接コードしてしまうと、
+ * デフォルト言語設定がコアの内部で参照されるごとに、そのクロージャーが
+ * 実行されてしまうため。デフォルト言語の参照は、多国語化を行う
+ * 場合、数多く実行される可能性がある。
+ */
 $language_from_browser_setting = value(function() {
+		// IEの場合、言語設定を行わないこともできる。
 		if ( !isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ) {
 			return Laravel\Config::get('language.fallback');
 		}
@@ -136,7 +143,6 @@ return array(
 	// 英語なら、'en',日本語なら'ja'です。
 
 	'language' => $language_from_browser_setting,
-	'languages' => array(),
 	/*
 	  |--------------------------------------------------------------------------
 	  | Supported Languages
