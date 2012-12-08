@@ -16,7 +16,7 @@ Laravel ver.3.2のサンプルです。実際の動作を見ながら、コー�
 
 * デモページ、エラーページを翻訳してあります。
 * 日本語ドキュメントも同包しております。更新は遅れ気味になりますので、最新版は、[こちら](http://laravel.kore1server.com)をご覧ください。もしくは、[電子書籍版](https://leanpub.com/laravel-3-japanese)をご購入ください。
-* IDEでの補完用コード(application/ccc.php)を用意しております。
+* IDEでの補完用コード(application/ccc.php)生成コマンドツールを用意しております。
 * 以下のサンプルコードとして、利用していただけるでしょう。
   * 多国語対応
   * Form Base Model（バンドル）の使用法
