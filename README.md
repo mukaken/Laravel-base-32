@@ -5,7 +5,7 @@ Sample and development base of Laravel ver. 3.2
 
 ### twitter-bootstrapバージョン
 
-Laravel 3.2.10
+Laravel 3.2.12
 
 Laravel ver.3.2のサンプルです。実際の動作を見ながら、コードを確認していただくために、公開します。開発のベースとして使用できるように、設定をしています。詳細は[Laravel開発ベースサンプル](http://kore1server.com/laravel-tutorial/312-laravel-32-development-base-sample.html)をご覧ください。
 
