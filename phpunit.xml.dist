@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="phpunit.php"
+<phpunit bootstrap="laravel/cli/tasks/test/phpunit.php"
          verbose="true">
     <testsuites>
-        <testsuite name="PHP test for Jenkins">
+        <testsuite name="Sample test suite">
+            <!-- テストケースファイルのサフィックスを指定 -->
+            <!-- ディレクトリーを指定すれば、その以下のサブフォルダー内のファイルも実行される -->
             <directory suffix="Test.php">application/tests</directory>
         </testsuite>
     </testsuites>
+    <!-- このログ出力はJenkinsで結果を表示する場合に使用 -->
     <logging>
-         <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+        <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
     </logging>
     <!-- カバーレージの指定。テストだけなら使用しない。 -->
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">application/models</directory>
             <directory suffix=".php">application/controllers</directory>
+            <!-- 対象外ファイル、blacklistで指定することも可能 -->
+            <exclude>
+                <file>application/controllers/base.php</file>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
