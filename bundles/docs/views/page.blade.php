@@ -6,6 +6,9 @@
 
 @section('content')
 {{ $content }}
+@endsection
+
+@section('footer')
 <hr>
 <p style="font-size:10px;">
 	<a href="http://kore1server.com/laravel-tutorial/299-laravel-japanese-document.html">日本語ドキュメントサイト維持にご協力ください。</a>&nbsp;<a href="http://kore1server.com/laravel-tutorial/323-published-laravel-docs-in-japanese.html">電子書籍版</a>もあります。
@@ -21,7 +24,6 @@
 </p>
 <p style="font-size:10px;">
 	{{ HTML::link('http://laravel.phper.jp/docs', 'phper.jp : http://laravel.phper.jp/docs') }}<br>
-	{{ HTML::link('http://laravel-ja.phpfogapp.com', 'PHP fog : http://laravel-ja.phpfogapp.com') }}<br>
 	{{ HTML::link('http://laravel-ja.pagodabox.com', 'Pagoda Box : http://laravel-ja.pagodabox.com') }}
 </p>
 <hr>
