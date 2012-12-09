@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1355010201">
+  <project timestamp="1355010201">
+    <file name="/home/hiro/public_html/l32/Laravel-base-32/application/controllers/home.php">
+      <class name="Home_Controller" namespace="global" fullPackage="Home">
+        <metrics methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="5" coveredelements="0"/>
+      </class>
+      <line num="33" type="method" name="action_index" crap="2" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="35" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <metrics loc="37" ncloc="10" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="5" coveredelements="0"/>
+    </file>
+    <file name="/home/hiro/public_html/l32/Laravel-base-32/application/models/command.php">
+      <class name="Command" namespace="global">
+        <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
+      </class>
+      <line num="36" type="method" name="get" crap="6" count="0"/>
+      <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="41" type="stmt" count="0"/>
+      <line num="42" type="stmt" count="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="46" type="method" name="command_string" crap="2" count="0"/>
+      <line num="47" type="stmt" count="0"/>
+      <line num="48" type="stmt" count="0"/>
+      <line num="49" type="stmt" count="0"/>
+      <metrics loc="50" ncloc="50" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
+    </file>
+    <file name="/home/hiro/public_html/l32/Laravel-base-32/application/models/form/command.php">
+      <class name="Form_Command" namespace="global" fullPackage="Form">
+        <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="15" ncloc="1" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/home/hiro/public_html/l32/Laravel-base-32/application/models/form/login.php">
+      <class name="Form_Login" namespace="global" fullPackage="Form">
+        <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="10" ncloc="8" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/home/hiro/public_html/l32/Laravel-base-32/application/models/form/signup.php">
+      <class name="Form_Signup" namespace="global" fullPackage="Form">
+        <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="12" ncloc="10" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/home/hiro/public_html/l32/Laravel-base-32/application/models/user.php">
+      <class name="User" namespace="global">
+        <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="11" coveredelements="11"/>
+      </class>
+      <line num="13" type="method" name="add" crap="1" count="2"/>
+      <line num="15" type="stmt" count="2"/>
+      <line num="17" type="stmt" count="2"/>
+      <line num="25" type="method" name="reset_password" crap="1" count="1"/>
+      <line num="26" type="stmt" count="1"/>
+      <line num="27" type="stmt" count="1"/>
+      <line num="28" type="stmt" count="1"/>
+      <line num="30" type="stmt" count="1"/>
+      <line num="39" type="method" name="set_password" crap="1" count="2"/>
+      <line num="40" type="stmt" count="2"/>
+      <line num="41" type="stmt" count="2"/>
+      <metrics loc="42" ncloc="23" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="11" coveredelements="11"/>
+    </file>
+    <metrics files="6" loc="166" ncloc="102" classes="6" methods="6" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="8" elements="31" coveredelements="11"/>
+  </project>
+</coverage>

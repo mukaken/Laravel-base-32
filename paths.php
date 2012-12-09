@@ -24,6 +24,8 @@
 $environments = array(
 
 	'local' => array('http://localhost*', '*.dev'),
+	'production' => array('*.com', '*.info', '*.jp'),
+	'test' => array(''),
 
 );
 
@@ -87,11 +89,11 @@ foreach ($paths as $name => $path)
 
 /**
  * A global path helper function.
- * 
+ *
  * <code>
  *     $storage = path('storage');
  * </code>
- * 
+ *
  * @param  string  $path
  * @return string
  */
@@ -102,7 +104,7 @@ function path($path)
 
 /**
  * A global path setter function.
- * 
+ *
  * @param  string  $path
  * @param  string  $value
  * @return void

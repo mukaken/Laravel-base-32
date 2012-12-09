@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="laravel/cli/tasks/test/phpunit.php"
-         verbose="true">
+<phpunit
+    bootstrap="laravel/cli/tasks/test/phpunit.php"
+    verbose="true">
+    <!-- Laravelの実行環境をテスト用にセット -->
+    <php>
+        <env name="LARAVEL_ENV" value="test" />
+    </php>
     <testsuites>
         <testsuite name="Sample test suite">
             <!-- テストケースファイルのサフィックスを指定 -->
@@ -10,11 +15,12 @@
     </testsuites>
     <!-- このログ出力はJenkinsで結果を表示する場合に使用 -->
     <logging>
+        <!-- Cloverカバーレッジレポートを使用する場合、次の２つのログが必要 -->
         <log type="coverage-html" target="build/coverage" title="Base32"
-                 charset="UTF-8" yui="true" highlight="true"
-                 lowUpperBound="35" highLowerBound="70"/>
+             charset="UTF-8" yui="true" highlight="true"
+             lowUpperBound="35" highLowerBound="70"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
-
+        <!-- JUnitテスト結果を表示する場合、このログが必要 -->
         <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
     </logging>
     <!-- カバーレージのターゲット指定。テストだけなら使用しない。 -->

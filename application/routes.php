@@ -33,7 +33,7 @@
  */
 
 /*
- * ルート、オリジナルのまま変更なし
+ * ルート
  */
 Route::get('/', function() {
 		return View::make('home.index');
@@ -64,7 +64,7 @@ Route::get('login', function() {
 Route::post('login',
 	array( 'before' => 'csrf', function() {
 		if ( Form_Login::is_valid() ) { // 認証前のバリデーションは多分抜いても大丈夫
-			if ( Auth::attempt(Input::only(array('username', 'password'))) ){
+			if ( Auth::attempt(Input::only(array( 'username', 'password' ))) ) {
 				return Redirect::home()->with('message', __('auth.success')); // ルートへ
 			}
 			else {

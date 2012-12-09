@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Sample test suite" tests="2" assertions="4" failures="0" errors="0" time="0.156541">
+    <testsuite name="TestUserModel" file="/home/hiro/public_html/l32/Laravel-base-32/application/tests/application/models/userTest.php" tests="2" assertions="4" failures="0" errors="0" time="0.156541">
+      <testcase name="testUserShouldSignupAndLogin" class="TestUserModel" file="/home/hiro/public_html/l32/Laravel-base-32/application/tests/application/models/userTest.php" line="30" assertions="2" time="0.068900"/>
+      <testcase name="testUserShouldResetPassword" class="TestUserModel" file="/home/hiro/public_html/l32/Laravel-base-32/application/tests/application/models/userTest.php" line="52" assertions="2" time="0.087641"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
