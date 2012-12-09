@@ -24,7 +24,6 @@
 </p>
 <p style="font-size:10px;">
 	{{ HTML::link('http://laravel.phper.jp/docs', 'phper.jp : http://laravel.phper.jp/docs') }}<br>
-	{{ HTML::link('http://laravel-ja.phpfogapp.com', 'PHP fog : http://laravel-ja.phpfogapp.com') }}<br>
 	{{ HTML::link('http://laravel-ja.pagodabox.com', 'Pagoda Box : http://laravel-ja.pagodabox.com') }}
 </p>
 <hr>
