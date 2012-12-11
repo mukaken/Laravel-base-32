@@ -5,11 +5,7 @@
 @endsection
 
 @section('content')
-<div class="row">
-	<div class="twelve columns">
-		<h3>404 ページが見つかりません</h3>
-		<p>お探しのページは見つかりません。</p>
-		<p>URLを確認の上、再度アクセスしてください。</p>
-	</div>
-</div>
+<h2>404 ページが見つかりません</h2>
+<p>お探しのページは見つかりません。</p>
+<p>URLを確認の上、再度アクセスしてください。</p>
 @endsection
