@@ -3,11 +3,11 @@ Laravel-base-32
 
 Sample and development base of Laravel ver. 3.2
 
-### Foundation バージョン
+### ベースバージョン
 
 Laravel 3.2.12
 
-Laravel ver.3.2のサンプルです。実際の動作を見ながら、コードを確認していただくために、公開します。開発のベースとして使用できるように、設定をしています。詳細は[Laravel開発ベースサンプル](http://kore1server.com/laravel-tutorial/312-laravel-32-development-base-sample.html)をご覧ください。
+Laravel ver.3.2のサンプルです。実際の動作を見ながら、コードを確認していただくために、公開します。
 
 このfoundationブランチはCSSフレームワークのFoundationを組み込んだバージョンです。一般的な用途やLaravelの学習にはoriginal-cssバージョンをご利用ください。コードがすっきりとして見やすくなっています。
 他にtwitter-bootstrapブランチもあります。その名の通りtwitter bootstrapを使用したバージョンです。
@@ -20,6 +20,7 @@ Laravel ver.3.2のサンプルです。実際の動作を見ながら、コー�
 * 日本語ドキュメントも同包しております。更新は遅れ気味になりますので、最新版は、[こちら](http://laravel.kore1server.com)をご覧ください。もしくは、[電子書籍版](https://leanpub.com/laravel-3-japanese)をご購入ください。
 * IDEでの補完用コード(application/ccc.php)生成コマンドツールを用意しております。
 * 以下のサンプルコードとして、利用していただけるでしょう。
+  * オリジナルエラーページの作成
   * 多国語対応
   * Form Base Model（バンドル）の使用法
   * 設定(config)ファイルの環境による使い分け
