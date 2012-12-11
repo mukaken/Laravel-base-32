@@ -3,13 +3,13 @@ Laravel-base-32
 
 Sample and development base of Laravel ver. 3.2
 
-### twitter-bootstrapバージョン
+### ベースバージョン
 
 Laravel 3.2.12
 
-Laravel ver.3.2のサンプルです。実際の動作を見ながら、コードを確認していただくために、公開します。開発のベースとして使用できるように、設定をしています。詳細は[Laravel開発ベースサンプル](http://kore1server.com/laravel-tutorial/312-laravel-32-development-base-sample.html)をご覧ください。
+Laravel ver.3.2のサンプルです。実際の動作を見ながら、コードを確認していただくために、公開します。
 
-twitter-bootstrapブランチは、その名の通りtwitter bootstrapを使用したバージョンです。twitter bootstrapをベースに利用する場合のために、用意しました。コードがやや複雑になりますので、学習目的やbootstarpを使用しない開発のベースには、original-cssブランチをご利用ください。コードがすっきりとしており、分かりやすくなっています。
+このmasterブランチは開発の元バージョンです。そのため、動作しないこともあります。他のブランチをご覧ください。一番簡単なLaravelオリジナルデモのCSSを生かしたorigina-cssバージョン、Twitter Bootstarapを利用したバージョン、オフキャンバス動作をさせるFundationバージョンがあります。
 
 特徴
 ====
@@ -18,6 +18,7 @@ twitter-bootstrapブランチは、その名の通りtwitter bootstrapを使用�
 * 日本語ドキュメントも同包しております。更新は遅れ気味になりますので、最新版は、[こちら](http://laravel.kore1server.com)をご覧ください。もしくは、[電子書籍版](https://leanpub.com/laravel-3-japanese)をご購入ください。
 * IDEでの補完用コード(application/ccc.php)生成コマンドツールを用意しております。
 * 以下のサンプルコードとして、利用していただけるでしょう。
+  * オリジナルエラーページの作成
   * 多国語対応
   * Form Base Model（バンドル）の使用法
   * 設定(config)ファイルの環境による使い分け
