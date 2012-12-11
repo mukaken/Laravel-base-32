@@ -41,10 +41,12 @@ $(function() {
     });
   }
 
-  $('#nav li a').on(events, function(e) {
-    e.preventDefault();
-    var href = $(this).attr('href'),
-      $target = $(href);
-    $('html, body').animate({scrollTop : $target.offset().top}, 300);
-  });
+// 一般のブラウザでは、ミニ表示時にメニューのリンクが動かなくなるため
+// コメントにした。
+//  $('#nav li a').on(events, function(e) {
+//    e.preventDefault();
+//    var href = $(this).attr('href'),
+//      $target = $(href);
+//    $('html, body').animate({scrollTop : $target.offset().top}, 300);
+//  });
 });
