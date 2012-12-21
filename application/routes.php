@@ -62,9 +62,13 @@ Route::get('login', function() {
 	});
 
 Route::post('login',
-	array( 'before' => 'csrf', function() {
+	array(
+	'before' => 'csrf',
+	function() {
 		if ( Form_Login::is_valid() ) { // 認証前のバリデーションは多分抜いても大丈夫
-			if ( Auth::attempt(Input::only(array( 'username', 'password' ))) ) {
+			if ( Auth::attempt(Input::only(array(
+						'username',
+						'password' ))) ) {
 				return Redirect::home()->with('message', __('auth.success')); // ルートへ
 			}
 			else {
@@ -93,9 +97,17 @@ Route::get('signup', function() {
 	});
 
 Route::post('signup',
-	array( 'before' => 'csrf', function() {
+	array(
+	'before' => 'csrf',
+	function() {
 		if ( Form_Signup::is_valid() ) {
-			$user = User::create(Input::only(array( 'username', 'password', 'email' ))); // ユーザー作成
+			$user = User::create(Input::only(array(
+						'username',
+						'password',
+						'email'
+						)
+					)
+			); // ユーザー作成
 
 			Auth::login($user->id); // ログインさせる
 
@@ -156,7 +168,8 @@ Route::post('command',
 			}
 			else {
 				// 何も指定されない場合は、ヘルプを出力
-				$command = array( 'help:commands' );
+				$command = array(
+					'help:commands' );
 			}
 
 			// 出力のバッファリング開始
@@ -280,12 +293,21 @@ Event::listen('500', function() {
   |
  */
 
-Route::filter('before', function() {
-// アプリケーションに対する全てのリクエストの前に行うコードをここに記述
+Route::filter('before',
+	function() {
+		// アプリケーションに対する全てのリクエストの前に行うコードをここに記述
+		// 例えばインプットフィルターを実現したければ：
+		//
+	    // Input::replace(array_map( 'trim' ,Input::all()));
 	});
 
-Route::filter('after', function($response) {
-// アプリケーションに対する全てのリクエストの後に行うコードをここに記述
+Route::filter('after',
+	function($response) {
+		// アプリケーションに対する全てのリクエストの後に行うコードをここに記述
+		// 例えばコンテンツ出力中の'Laravel'を'FuelPHP'に変換したければ
+		// if ( in_array($response->status(), array('200'))) {
+		// 	$response->content = str_replace('Laravel', 'FuelPHP', $response->content);
+		// }
 	});
 
 Route::filter('csrf', function() {
