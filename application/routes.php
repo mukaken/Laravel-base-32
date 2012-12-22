@@ -325,4 +325,3 @@ Route::filter('auth',
  * adminで始まるURL全部にauthフィルターを適用する
  */
 Route::filter('pattern: admin/*', 'auth');
-
