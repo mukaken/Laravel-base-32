@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1355010201">
-  <project timestamp="1355010201">
+<coverage generated="1355032565">
+  <project timestamp="1355032565">
     <file name="/home/hiro/public_html/l32/Laravel-base-32/application/controllers/home.php">
       <class name="Home_Controller" namespace="global" fullPackage="Home">
         <metrics methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="5" coveredelements="0"/>
