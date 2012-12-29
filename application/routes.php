@@ -65,17 +65,21 @@ Route::post('login',
 	array(
 	'before' => 'csrf',
 	function() {
-		if ( Form_Login::is_valid() ) { // 認証前のバリデーションは多分抜いても大丈夫
+		if ( Form_Login::is_valid() )
+		{ // 認証前のバリデーションは多分抜いても大丈夫
 			if ( Auth::attempt(Input::only(array(
 						'username',
-						'password' ))) ) {
+						'password' ))) )
+			{
 				return Redirect::home()->with('message', __('auth.success')); // ルートへ
 			}
-			else {
+			else
+			{
 				return Redirect::back()->with_input()->with('warning', __('auth.failed'));
 			}
 		}
-		else {
+		else
+		{
 			return Redirect::back()->with_input()->with_errors(Form_Login::$validation);
 		}
 	} ));
@@ -100,7 +104,8 @@ Route::post('signup',
 	array(
 	'before' => 'csrf',
 	function() {
-		if ( Form_Signup::is_valid() ) {
+		if ( Form_Signup::is_valid() )
+		{
 			$user = User::create(Input::only(array(
 						'username',
 						'password',
@@ -113,7 +118,8 @@ Route::post('signup',
 
 			return Redirect::home()->with('message', __('auth.created')); // ルートへ
 		}
-		else {
+		else
+		{
 			return Redirect::back()->with_input()->with_errors(Form_Signup::$validation);
 		}
 	} ));
@@ -132,13 +138,16 @@ Route::post('signup',
  */
 View::composer('template',
 	function($view) { {
-			if ( !isset($view->warning) ) {
+			if ( !isset($view->warning) )
+			{
 				$view->warning = Session::get('warning', false);
 			}
-			if ( !isset($view->notice) ) {
+			if ( !isset($view->notice) )
+			{
 				$view->notice = Session::get('notice', false);
 			}
-			if ( !isset($view->message) ) {
+			if ( !isset($view->message) )
+			{
 				$view->message = Session::get('message', false);
 			}
 		}
@@ -161,12 +170,15 @@ Route::post('command',
 		// バリディーション項目を設定していないため、
 		// 常にtrueになるが、将来追加した時のため、
 		// コードを入れておく
-		if ( Form_Command::is_valid() ) {
-			if ( Input::has('command') ) {
+		if ( Form_Command::is_valid() )
+		{
+			if ( Input::has('command') )
+			{
 				// 入力を空白で区切って配列にする
 				$command = explode(' ', Input::get('command', ''));
 			}
-			else {
+			else
+			{
 				// 何も指定されない場合は、ヘルプを出力
 				$command = array(
 					'help:commands' );
@@ -193,7 +205,8 @@ Route::post('command',
 
 			return Redirect::back()->with_input()->with('message', $buff);
 		}
-		else {
+		else
+		{
 			return Redirect::back()
 					->with_input()
 					->with_errors(Form_Command::$validation);
@@ -205,12 +218,15 @@ Route::post('command-selected',
 		// バリディーション項目を設定していないため、
 		// 常にtrueになるが、将来追加した時のため、
 		// コードを入れておく
-		if ( Form_Command::is_valid() ) {
-			if ( Input::get('commands', '0') != '0' ) {
+		if ( Form_Command::is_valid() )
+		{
+			if ( Input::get('commands', '0') != '0' )
+			{
 				// コマンドを空白で区切って配列にする
 				$command = explode(' ', Command::command_string(Input::get('commands', '')));
 			}
-			else {
+			else
+			{
 				return Redirect::back()->with_input()->with('warning', '実行する項目を選んでください');
 			}
 
@@ -235,7 +251,8 @@ Route::post('command-selected',
 
 			return Redirect::back()->with_input()->with('message', $buff);
 		}
-		else {
+		else
+		{
 			return Redirect::back()
 					->with_input()
 					->with_errors(Form_Command::$validation);
@@ -325,3 +342,9 @@ Route::filter('auth',
  * adminで始まるURL全部にauthフィルターを適用する
  */
 Route::filter('pattern: admin/*', 'auth');
+
+/*
+ * 依存性注入
+ */
+
+include_once path('app').'dependencies.php';
