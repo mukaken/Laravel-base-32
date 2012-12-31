@@ -344,6 +344,22 @@ Route::filter('auth',
 Route::filter('pattern: admin/*', 'auth');
 
 /*
+ * バンドルの設定ファイルを変更する
+ * 直接変更すると、アップデート時に
+ * 上書きされるため、イベントを拾って設定
+ */
+Event::listen('laravel.started: sample', function() {
+		// 変更する設定が少ない場合
+		Config::set('sample::melon.color', 'red');
+		// 変更する設定が多い場合は、
+		// 別のファイルに設定し読み込んだほうが便利
+		$config = require_once path('app').'config/melon.php';
+		foreach($config as $key => $val) {
+			Config::set("sample::melon.$key", $val);
+		}
+	});
+
+/*
  * 依存性注入
  */
 
