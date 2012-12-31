@@ -51,4 +51,10 @@ return array(
     'form-base-model' => array(
         'auto' => true,
     ),
+
+	// サンプルバンドルです
+	// 設定を外部から変更するデモです
+	'sample' => array(
+		'auto' => true,
+	),
 );
