@@ -33,7 +33,7 @@
  */
 
 /*
- * ルート
+ * ルート(root)（トップ）
  */
 Route::get('/', function() {
 		return View::make('home.index');
@@ -71,26 +71,33 @@ Route::post('login',
 						'username',
 						'password' ))) )
 			{
-				return Redirect::home()->with('message', __('auth.success')); // ルートへ
+				return Redirect::home()
+						->with('message', __('auth.success')); // ルートへ
 			}
 			else
 			{
-				return Redirect::back()->with_input()->with('warning', __('auth.failed'));
+				return Redirect::back()
+						->with_input()
+						->with('warning', __('auth.failed'));
 			}
 		}
 		else
 		{
-			return Redirect::back()->with_input()->with_errors(Form_Login::$validation);
+			return Redirect::back()
+					->with_input()
+					->with_errors(Form_Login::$validation);
 		}
 	} ));
 
 /*
  * ログオフルート
  */
-Route::get('logout', function() {
+Route::get('logout',
+	function() {
 		Auth::logout();
 
-		return Redirect::home()->with('message', __('auth.logoff'));
+		return Redirect::home()
+				->with('message', __('auth.logoff'));
 	});
 
 /*
@@ -123,6 +130,30 @@ Route::post('signup',
 			return Redirect::back()->with_input()->with_errors(Form_Signup::$validation);
 		}
 	} ));
+
+/*
+ * 英語表示切替
+ */
+Route::get('set/english',
+	array(
+	'as' => 'set-english',
+	function() {
+		Cookie::forever('language', 'en');
+		return Redirect::home();
+	}
+));
+
+/*
+ * 日本語表示切替
+ */
+Route::get('set/japanese',
+	array(
+	'as' => 'set-japanese',
+	function() {
+		Cookie::forever('language', 'ja');
+		return Redirect::home();
+	}
+));
 
 /**
  * テンプレートコンポーサー
@@ -313,9 +344,64 @@ Event::listen('500', function() {
 Route::filter('before',
 	function() {
 		// アプリケーションに対する全てのリクエストの前に行うコードをここに記述
-		// 例えばインプットフィルターを実現したければ：
+		// 全入力のトリム処理
+		Input::replace(array_map('trim', Input::all()));
+
+		// クッキー、ブラウザ設定から表示言語を決定する
+		// LaravelはURLのドメイン名直後に言語コードを
+		// 指定することにより、Langクラスで使用する
+		// デフォルト言語を切り替えられる。
 		//
-	    // Input::replace(array_map( 'trim' ,Input::all()));
+		// 例）sample.com/en/top 英語表示へ
+		//
+		// これは多少ダサいので、以下の動作をさせる
+		//  1 ) 明確に指定された場合は、クッキーに保存し
+		//      以降はその言語で表示
+		//  2 ) 指定されていない場合は、ブラウザの言語設定
+		//      から表示言語を決定
+
+		$default = Config::get('language.fallback', 'en');
+
+		if ( Cookie::has('language') )
+		{
+			Config::set('application.language', Cookie::get('language'));
+		}
+		elseif ( !isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ) // IEは未設定を許す
+		{
+			Config::set('application.language', $default);
+		}
+		else
+		{
+			// 最初にデフォルト言語をセットしておく
+			Config::set('application.language', $default);
+
+			// ブラウザの言語設定を読み込む
+			$lang = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+			// $langs[言語コード] = プライオリティの形式に変換
+			$langs = array( );
+			foreach ( $lang as $key => $code_priority ) {
+				if ( preg_match('/(.+);q=([0-9\.]+)/', $code_priority, $matched) === 1 )
+				{
+					$langs[$matched[1]] = $matched[2];
+				}
+				else
+				{
+					$langs[$code_priority] = '1'; // デフォルト値
+				}
+			}
+			// プライオリティ（配列の値）でソート
+			arsort($langs);
+
+			// サポート言語として存在するかチェック
+			foreach ( $langs as $code => $priority ) {
+				if ( in_array($code, Config::get('language.support')) )
+				{
+					Config::set('application.language', $code);
+					break;
+				}
+			}
+		}
 	});
 
 Route::filter('after',
@@ -348,13 +434,14 @@ Route::filter('pattern: admin/*', 'auth');
  * 直接変更すると、アップデート時に
  * 上書きされるため、イベントを拾って設定
  */
-Event::listen('laravel.started: sample', function() {
+Event::listen('laravel.started: sample',
+	function() {
 		// 変更する設定が少ない場合
 		Config::set('sample::melon.color', 'red');
 		// 変更する設定が多い場合は、
 		// 別のファイルに設定し読み込んだほうが便利
 		$config = require_once path('app').'config/melon.php';
-		foreach($config as $key => $val) {
+		foreach ( $config as $key => $val ) {
 			Config::set("sample::melon.$key", $val);
 		}
 	});

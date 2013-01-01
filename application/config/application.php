@@ -1,46 +1,5 @@
 <?php
 
-/*
- * ブラウザの言語設定から、言語を読み込むために追加
- *
- * 一度、変数に受け取るのは、クロージャーとして直接コードしてしまうと、
- * デフォルト言語設定がコアの内部で参照されるごとに、そのクロージャーが
- * 実行されてしまうため。デフォルト言語の参照は、多国語化を行う
- * 場合、数多く実行される可能性がある。
- */
-$language_from_browser_setting = value(function() {
-		// IEの場合、言語設定を行わないこともできる。
-		if ( !isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ) {
-			return Laravel\Config::get('language.fallback');
-		}
-		else {
-			// ブラウザの言語設定を読み込む
-			$lang = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-
-			// $langs[言語コード] = プライオリティの形式に変換
-			$langs = array( );
-			foreach ( $lang as $key => $code_priority ) {
-				if ( preg_match('/(.+);q=([0-9\.]+)/', $code_priority, $matched) === 1 ) {
-					$langs[$matched[1]] = $matched[2];
-				}
-				else {
-					$langs[$code_priority] = '1'; // default value
-				}
-			}
-			// プライオリティ（配列の値）でソート
-			arsort($langs);
-
-			foreach ( $langs as $code => $priority ) {
-				// サポート言語として存在するかチェック
-				if ( in_array($code, Laravel\Config::get('language.support')) ) {
-					return $code;
-				}
-			}
-			// 存在しない場合フォールバック言語を使用する
-			return Laravel\Config::get('language.fallback');
-		};
-	});
-
 return array(
 	/*
 	  |--------------------------------------------------------------------------
@@ -139,10 +98,7 @@ return array(
 	  |
 	 */
 
-	// 使用言語を固定する場合、直接言語コードを指定してください。
-	// 英語なら、'en',日本語なら'ja'です。
-
-	'language' => $language_from_browser_setting,
+	'language' => 'ja',
 	/*
 	  |--------------------------------------------------------------------------
 	  | Supported Languages
@@ -152,6 +108,12 @@ return array(
 	  | enters your application with a URI beginning with one of these values
 	  | the default language will automatically be set to that language.
 	  |
+	 */
+	/*
+	 * この配列は、URLの中でドメイン名直後に言語コードを指定し、切り換える場合に
+	 * 使用する。例えばsample.com/en/topで英語表示sample.com/ja/topで日本語表示と
+	 * なる。この機能で使用する言語コードを配列で指定する。
+	 * この機能を使用しない場合、空配列のままにしておく。
 	 */
 
 	'languages' => array( ),
