@@ -108,11 +108,23 @@
 
 				<section id="sidebar" role="complementary">
 					@section('sidenave')
-					<li>{{ HTML::link('/', 'ホーム') }}</li>
-					<li>{{ HTML::link('login','ログイン') }}</li>
-					<li>{{ HTML::link('logout', 'ログアウト') }}</li>
-					<li>{{ HTML::link('signup', 'ユーザー登録') }}</li>
-					<li>{{ HTML::link('admin/home', '管理者ページトップ') }}</li>
+					<div>
+						<h5>ナビゲーション</h5>
+						<ul>
+							<li>{{ HTML::link('/', 'ホーム') }}</li>
+							<li>{{ HTML::link('login','ログイン') }}</li>
+							<li>{{ HTML::link('logout', 'ログアウト') }}</li>
+							<li>{{ HTML::link('signup', 'ユーザー登録') }}</li>
+							<li>{{ HTML::link('admin/home', '管理者ページトップ') }}</li>
+						</ul>
+					</div>
+					<div>
+						<h5>言語設定</h5>
+						<ul>
+							<li>{{ HTML::link_to_route('set-japanese', '日本語') }}</li>
+							<li>{{ HTML::link_to_route('set-english', 'English') }}</li>
+						</ul>
+					</div>
 					@yield_section
 				</section>
 			</div>
