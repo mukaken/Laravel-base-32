@@ -31,24 +31,30 @@
 						<li>{{ HTML::link('signup', 'ユーザー登録') }}</li>
 						<li>{{ HTML::link('admin/home', '管理者ページトップ') }}</li>
 					</ul>
+					<h3>言語設定</h3>
+					<ul>
+						<p>現在の言語設定：{{ Config::get('application.language') }}</p>
+						<li>{{ HTML::link_to_route('set-japanese', '日本語') }}</li>
+						<li>{{ HTML::link_to_route('set-english', 'English') }}</li>
+					</ul>
 					@yield_section
                 </div>
 				<div class="content">
 					<div class="errors">
 						@if (Session::has('warning'))
-							<div style="color:red;">
-								<p>{{ Session::get('warning') }}</p>
-							</div>
+						<div style="color:red;">
+							<p>{{ Session::get('warning') }}</p>
+						</div>
 						@endif
 						@if (Session::has('notice'))
-							<div style="color:orangered;">
-								<p>{{ Session::get('notice') }}</p>
-							</div>
+						<div style="color:orangered;">
+							<p>{{ Session::get('notice') }}</p>
+						</div>
 						@endif
 						@if (Session::has('message'))
-							<div style="color:blue;">
-								<p>{{ Session::get('message') }}</p>
-							</div>
+						<div style="color:blue;">
+							<p>{{ Session::get('message') }}</p>
+						</div>
 						@endif
 					</div>
 					@yield('content')
