@@ -1,29 +1,8 @@
-/* Artfully masterminded by ZURB  */
-
-/* -------------------------------------------------- 
-   Table of Contents
------------------------------------------------------
-:: Shared Styles
-:: Page Name 1
-:: Page Name 2
-*/
-
-
-/* -----------------------------------------
-   Shared Styles
------------------------------------------ */
-
-
-
-/* -----------------------------------------
-   Page Name 1
------------------------------------------ */
-
-
-
-
-/* -----------------------------------------
-   Page Name 2
------------------------------------------ */
-
-
+/*  サイドナビ内定義 */
+#sidebar ul, #sidebar ol, #sidebar dl { font-size: 14px; line-height: 1.4; padding: 0; margin-bottom: 17px; list-style-position: outside; list-style-type: none;}
+#sidebar li { margin-bottom: 2px;}
+#sidebar li ul, #sidebar li ol { margin-left: 10px; margin-bottom: 0px; }
+#sidebar ul { margin-left: 15px;}
+#sidebar ol { margin-left: 15px; }
+#sidebar p { margin-bottom: 0px;}
+#sidebar h5 { margin-bottom: 10px;}

@@ -96,7 +96,7 @@
                     <div class="alert-box success">
 						{{ $message }}
 						<a href="" class="close">&times;</a>
-                   </div>
+					</div>
                     @endif
 
 					<div class="row">
@@ -108,11 +108,23 @@
 
 				<section id="sidebar" role="complementary">
 					@section('sidenave')
-					<li>{{ HTML::link('/', 'ホーム') }}</li>
-					<li>{{ HTML::link('login','ログイン') }}</li>
-					<li>{{ HTML::link('logout', 'ログアウト') }}</li>
-					<li>{{ HTML::link('signup', 'ユーザー登録') }}</li>
-					<li>{{ HTML::link('admin/home', '管理者ページトップ') }}</li>
+					<div>
+						<h5>ナビゲーション</h5>
+						<ul>
+							<li>{{ HTML::link('/', 'ホーム') }}</li>
+							<li>{{ HTML::link('login','ログイン') }}</li>
+							<li>{{ HTML::link('logout', 'ログアウト') }}</li>
+							<li>{{ HTML::link('signup', 'ユーザー登録') }}</li>
+							<li>{{ HTML::link('admin/home', '管理者ページトップ') }}</li>
+						</ul>
+					</div>
+					<div>
+						<h5>言語設定</h5>
+						<ul>
+							<li>{{ HTML::link_to_route('set-japanese', '日本語') }}</li>
+							<li>{{ HTML::link_to_route('set-english', 'English') }}</li>
+						</ul>
+					</div>
 					@yield_section
 				</section>
 			</div>
@@ -130,11 +142,11 @@
 		{{ HTML::script('foundation/javascripts/foundation.min.js') }}
 
 		<!-- Combine and Compress These JS Files -->
-<!--		{{ HTML::script('foundation/javascripts/jquery.reveal.js') }}
-		{{ HTML::script('foundation/javascripts/jquery.orbit-1.4.0.js') }}
-		{{ HTML::script('foundation/javascripts/jquery.customforms.js') }}
-		{{ HTML::script('foundation/javascripts/jquery.placeholder.min.js') }}
-		{{ HTML::script('foundation/javascripts/jquery.tooltips.js') }}-->
+		<!--		{{ HTML::script('foundation/javascripts/jquery.reveal.js') }}
+				{{ HTML::script('foundation/javascripts/jquery.orbit-1.4.0.js') }}
+				{{ HTML::script('foundation/javascripts/jquery.customforms.js') }}
+				{{ HTML::script('foundation/javascripts/jquery.placeholder.min.js') }}
+				{{ HTML::script('foundation/javascripts/jquery.tooltips.js') }}-->
 		<!-- End Combine and Compress These JS Files -->
 
 		<!-- Initialize JS Plugins -->
