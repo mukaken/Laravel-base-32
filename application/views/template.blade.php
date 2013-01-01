@@ -32,20 +32,22 @@
                         </a>
                         <ul class="dropdown-menu">
                             @if (Auth::check())
-                            <li><a href="{{ URL::to('admin/home') }}">Admin Area</a></li>
+                            <li>{{ HTML::link('admin/home', 'Admin Area') }}</li>
                             <li class="divider"></li>
-                            <li><a href="{{ URL::to('logout') }}">Log Out</a></li>
+                            <li>{{ HTML::link('logout', 'Log Out') }}</li>
                             @else
-                            <li><a href="{{ URL::to('login') }}">Log In</a></li>
+							<li>{{ HTML::link('login', 'Log In') }}</li>
                             @endif
                         </ul>
                     </div>
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li class="active"><a href="{{ URL::base() }}">Home</a></li>
-                            <li><a href="{{ URL::to('docs/home') }}">Documents</a></li>
-                            <li><a href="{{ URL::to('login') }}">Login</a></li>
-                            <li><a href="{{ URL::to('signup') }}">Sing Up</a></li>
+							<li>{{ HTML::link('docs/home', 'Documents') }}</li>
+                            <li>{{ HTML::link('login', 'Login') }}</li>
+                            <li>{{ HTML::link('signup', 'Sing Up') }}</li>
+                            <li>{{ HTML::link_to_route('set-japanese', '日本語') }}</li>
+							<li>{{ HTML::link_to_route('set-english', 'English') }}</li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
