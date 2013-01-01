@@ -441,9 +441,7 @@ Event::listen('laravel.started: sample',
 		// 変更する設定が多い場合は、
 		// 別のファイルに設定し読み込んだほうが便利
 		$config = require_once path('app').'config/melon.php';
-		foreach ( $config as $key => $val ) {
-			Config::set("sample::melon.$key", $val);
-		}
+		Config::set('sample::melon', array_merge(Config::get('sample::melon'), $config));
 	});
 
 /*
