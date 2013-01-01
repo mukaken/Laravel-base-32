@@ -17,11 +17,11 @@ Laravel:トップページ
             このページを生成しているのは次のコードです。
         </p>
 
-        <pre>{{ path('app') }}routes.php</pre>
+        <pre class="prettyprint">{{ path('app') }}routes.php</pre>
 
         <p>ビューはこちらで見つけることができます：</p>
 
-        <pre>{{ path('app') }}views/home/index.php</pre>
+        <pre class="prettyprint">{{ path('app') }}views/home/index.php</pre>
     </div>
 </div>
 <div class="row-fluid">
