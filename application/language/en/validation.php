@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return array(
 
@@ -99,6 +99,12 @@ return array(
 	|
 	*/
 
-	'attributes' => array(),
+	'attributes' => array(
+        'username' => 'User Name',
+        'password' => 'Password',
+        'password_confirm' => 'Confirm',
+        'email' => 'Mail Address',
+        'submit' => 'Send',
+    ),
 
 );
