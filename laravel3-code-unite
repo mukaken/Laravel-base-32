@@ -1,0 +1,91 @@
+# !/usr/bin/sh
+
+set -e
+
+# Please set your html document root
+publishhtml=/home/Your-Home-Directory/public_html
+
+# Please set your directory to collect core/core files/directories
+codedir=/home/Your-Home-Directory/laravel-dirs
+
+laravelcore="${codedir}/laravel"
+sitesdir="${codedir}/sites"
+distdir="${sitesdir}/$1"
+
+targetdir="${publishhtml}/$1"
+
+if [ $publishhtml = '/home/Your-Home-Directory/public_html' ]
+then
+    echo Error! Please open this script with a editor, and set your document root to 'publishhtml'.
+    exit 10
+fi
+
+if [ $codedir = '/home/Your-Home-Directory/laravel-dirs' ]
+then
+    echo Error! Please open this script with a editor, and set you directory that collect your codes to 'codedir'.
+fi
+
+if [ $# != 1 ]
+then
+    echo
+    echo Unite Laravel file structure into out of web document root.
+    echo
+    echo Usage: $0 Target-directory-name
+    echo
+    echo Note: Before first run this command, please set your directories to fit your host envrionments.
+    echo
+    exit 1
+fi
+
+if [ ! -d $targetdir ]
+then
+    echo Error! Target directory is not found. \($targetdir\)
+    exit 2
+fi
+
+if [ ! -f "${targetdir}/paths.php" ]
+then
+    echo Error! Maybe already united. No paths.php in $targetdir
+    exit 3
+fi
+
+if [ ! -d $codedir ]
+then
+    mkdir $codedir
+fi
+
+if [ ! -d $sitesdir ]
+then
+    mkdir $sitesdir
+fi
+
+# move laravel root folder to united directory
+mv $targetdir $sitesdir
+
+# move back public folder to document root.
+mv "${distdir}/public" $targetdir
+
+# copy core folder if not exist in united directory.
+if [ ! -d $laravelcore ]
+then
+    cp -fa "${distdir}/laravel/" $laravelcore
+    echo Notice : Copied Laravel core direcotry to $laravelcore.
+fi
+
+# remove core folder
+rm -R "${distdir}/laravel"
+
+# replace paths.php path in index.php
+
+sed -i -e "
+    s+../paths.php+${distdir}/paths.php+
+" "${targetdir}/index.php"
+
+# replace public/sys path in paths.php
+sed -i -e "
+    s+paths[ \n\r\f\t]*[[ \n\r\f\t]*'sys'[ \n\r\f\t]*][ \n\r\f\t]*=[ \n\r\f\t]*'laravel'+paths['sys'] = '${laravelcore}'+
+    s+paths[ \n\r\f\t]*[[ \n\r\f\t]*'public'[ \n\r\f\t]*][ \n\r\f\t]*=[ \n\r\f\t]*'public'+paths['public'] = '${targetdir}'+
+"  "${distdir}/paths.php"
+
+echo "Successfully complited."
+exit 0
