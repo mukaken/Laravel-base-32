@@ -8,11 +8,28 @@ publichtml=/home/Your-Home-Directory/public_html
 # Please set your directory to collect core/core files/directories
 codedir=/home/Your-Home-Directory/laravel-dirs
 
+# Please set directory that file structure put into
+workdir=/home/Your-Home-Directory/laravel-unite
+
 laravelcore="${codedir}/laravel"
 sitesdir="${codedir}/sites"
 distdir="${sitesdir}/$1"
 
 targetdir="${publichtml}/$1"
+
+basename=`basename ${publichtml}`
+publicbase="${workdir}/${basename}"
+
+basename=`basename ${codedir}`
+codebase="${workdir}/${basename}"
+
+basename=`basename ${sitesdir}`
+sitesbase="${codebase}/${basename}"
+
+basename=`basename ${laravelcore}`
+corebase="${codebase}/${basename}"
+
+targetbase="${sitesbase}/$1"
 
 if [ $publichtml = '/home/Your-Home-Directory/public_html' ]
 then
@@ -22,7 +39,18 @@ fi
 
 if [ $codedir = '/home/Your-Home-Directory/laravel-dirs' ]
 then
-    echo Error! Please open this script with a editor, and set you directory that collect your codes to 'codedir'.
+    echo Error! Please open this script with a editor, and set your directory that collect your codes to 'codedir'.
+fi
+
+if [ $workdir = '/home/Your-Home-Directory/laravel-unite' ]
+then
+    echo Error! Please open this script with a editor, and set you directory to make upload folder to 'workdir'.
+fi
+
+if [ $publicbase = $codebase ]
+then
+    echo Error! This script will make two directories into $workdir named from base directory name of 'publichtml' and 'codedir'.
+    echo Both last name of directory paths \(base name\) are same. So please specify diffrent names with them.
 fi
 
 if [ $# != 1 ]
@@ -49,43 +77,52 @@ then
     exit 3
 fi
 
-if [ ! -d $codedir ]
+if [ ! -d $workdir ]
 then
-    mkdir $codedir
+    mkdir $workdir
 fi
 
-if [ ! -d $sitesdir ]
+if [ ! -d $publicbase ]
 then
-    mkdir $sitesdir
+    mkdir $publicbase
 fi
 
-# move laravel root folder to united directory
-mv $targetdir $sitesdir
+if [ ! -d $codebase ]
+then
+    mkdir $codebase
+fi
 
-# move back public folder to document root.
-mv "${distdir}/public" $targetdir
+if [ ! -d $sitesbase ]
+then
+    mkdir $sitesbase
+fi
+
+# copy laravel root folder to united directory
+cp -fa $targetdir $sitesbase
+
+# mv public folder to temporary document root.
+mv "${targetbase}/public" "${publicbase}/$1"
 
 # copy core folder if not exist in united directory.
-if [ ! -d $laravelcore ]
+if [ ! -d $corebase ]
 then
-    cp -fa "${distdir}/laravel/" $laravelcore
-    echo Notice : Copied Laravel core direcotry to $laravelcore.
+    cp -fa "${targetbase}/laravel/" $corebase
 fi
 
 # remove core folder
-rm -R "${distdir}/laravel"
+rm -R "${targetbase}/laravel"
 
 # replace paths.php path in index.php
 
 sed -i -e "
     s+../paths.php+${distdir}/paths.php+
-" "${targetdir}/index.php"
+" "${publicbase}/$1/index.php"
 
 # replace public/sys path in paths.php
 sed -i -e "
     s+paths[ \n\r\f\t]*[[ \n\r\f\t]*'sys'[ \n\r\f\t]*][ \n\r\f\t]*=[ \n\r\f\t]*'laravel'+paths['sys'] = '${laravelcore}'+
     s+paths[ \n\r\f\t]*[[ \n\r\f\t]*'public'[ \n\r\f\t]*][ \n\r\f\t]*=[ \n\r\f\t]*'public'+paths['public'] = '${targetdir}'+
-"  "${distdir}/paths.php"
+"  "${targetbase}/paths.php"
 
 echo "Successfully complited."
 exit 0
