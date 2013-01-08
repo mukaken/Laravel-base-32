@@ -73,7 +73,7 @@ return array(
 		// その時点で定義されておらずエラーになることがある。
 		// それを防ぐため、完全修飾名に変更
 
-		Laravel\Log::exception($exception);
+		\Laravel\Log::exception($exception);
 	},
 
 );
