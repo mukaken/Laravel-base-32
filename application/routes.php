@@ -440,8 +440,8 @@ Event::listen('laravel.started: sample',
 		Config::set('sample::melon.color', 'red');
 		// 変更する設定が多い場合は、
 		// 別のファイルに設定し読み込んだほうが便利
-		$config = require_once path('app').'config/melon.php';
-		Config::set('sample::melon', array_merge(Config::get('sample::melon'), $config));
+		// $config = require_once path('app').'config/melon.php';
+		// Config::set('sample::melon', array_merge(Config::get('sample::melon'), $config));
 	});
 
 /*
